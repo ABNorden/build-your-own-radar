@@ -1,0 +1,45 @@
+name: Build BYOR dist
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # ✅ Hier setzt du deine eigenen Namen:
+      RINGS: '["0-5 Jahre","5-10 Jahre","10-15 Jahre"]'
+      QUADRANTS: '["Industrie/Branche","Technologie","Produktion","Mitarbeitende"]'
+
+      # Optional (nur wenn du private Google Sheets nutzen willst)
+      # CLIENT_ID: ${{ secrets.BYOR_CLIENT_ID }}
+      # API_KEY: ${{ secrets.BYOR_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Zip dist
+        run: |
+          cd dist
+          zip -r ../dist.zip .
+          cd ..
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: byor-dist
+          path: dist.zip
+``
