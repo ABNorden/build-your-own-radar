@@ -42,4 +42,3 @@ jobs:
         with:
           name: byor-dist
           path: dist.zip
-``
