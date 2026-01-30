@@ -106,5 +106,34 @@
         Build your own radar, <span class="footer-date">dd/mm/yyyy</span> | <span class="footer-page-number">00</span>
       </div>
     </div>
+    <script>
+  // 1) Deine CSV-URL zentral definieren:
+  window.BYOR_PRELOAD_URL = "https://trendradar.projektemitherz.de/radar.csv";
+
+  // 2) Wenn die Seite (und das BYOR-Formular) geladen sind:
+  window.addEventListener("load", function () {
+    try {
+      const url  = window.BYOR_PRELOAD_URL;
+      const form = document.getElementById("byor-form-submit");
+      const input = document.getElementById("document-input");
+
+      // Falls BYOR die Elemente noch nicht erzeugt hat, kurz verzögern:
+      const trigger = () => {
+        const f = document.getElementById("byor-form-submit");
+        const i = document.getElementById("document-input");
+        if (f && i && url) {
+          i.value = url;
+          f.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+        } else {
+          // Wiederholen bis DOM-Elemente da sind (max 2s)
+          setTimeout(trigger, 100);
+        }
+      };
+      trigger();
+    } catch (e) {
+      console.error("Autoload-Fehler:", e);
+    }
+  });
+</script>
   </body>
 </html>
