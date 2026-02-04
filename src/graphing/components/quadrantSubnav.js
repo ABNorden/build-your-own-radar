@@ -46,7 +46,7 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
     .append('div')
     .classed('quadrant-subnav__dropdown', true)
     .attr('aria-expanded', 'false')
-  subnavDropdown.append('span').classed('quadrant-subnav__dropdown-selector', true).text('All quadrants')
+  subnavDropdown.append('span').classed('quadrant-subnav__dropdown-selector', true).text('Alle Quadrants')
   const subnavArrow = subnavDropdown.append('span').classed('quadrant-subnav__dropdown-arrow', true)
 
   const quadrantList = subnavContainer.append('ul').classed('quadrant-subnav__list', true)
