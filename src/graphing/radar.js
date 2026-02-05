@@ -800,46 +800,68 @@ const Radar = function (size, radar) {
     // --- REMOVE OLD MOVEMENT LEGEND ---
 d3.select('.legend').remove();
 
-//---------------------------------------------------------
-// CUSTOM STATUS FILTER BUTTONS – CREATE ONCE
-//---------------------------------------------------------
+// ---------------------------------------------------------
+// CUSTOM D+H STATUS FILTER BUTTONS – CREATE ONCE
+// ---------------------------------------------------------
 
-// Wenn schon vorhanden → NICHT nochmal erstellen
-if (d3.select(".dh-status-filter-bar").empty()) {
-  
-  const statusBar = d3.select("#radar")
+const existing = d3.select("#dh-status-filter");
+if (existing.empty()) {
+
+  const { setStatusFilter, getActiveStatus } = require("./blips");
+
+  const bar = d3.select("#radar")
     .append("div")
-    .attr("class", "dh-status-filter-bar")
+    .attr("id", "dh-status-filter")
     .style("display", "flex")
-    .style("gap", "10px")
-    .style("margin", "20px auto")
-    .style("justify-content", "center");
+    .style("justify-content", "center")
+    .style("gap", "12px")
+    .style("margin-top", "20px");
 
   const filters = [
     { key: "all",       label: "Alle" },
     { key: "new",       label: "Neu" },
     { key: "moved in",  label: "Nach innen" },
     { key: "moved out", label: "Nach außen" },
-    { key: "no change", label: "Keine Änderung" }
+    { key: "no change", label: "Keine Änderung" },
   ];
 
-  const { setStatusFilter } = require("./blips");
-
   filters.forEach(f => {
-    statusBar.append("button")
+    bar.append("button")
       .attr("class", "dh-status-btn")
-      .text(f.label)
       .style("background", "#E10025")
       .style("color", "white")
-      .style("padding", "8px 12px")
+      .style("padding", "8px 14px")
       .style("border", "none")
       .style("border-radius", "4px")
       .style("cursor", "pointer")
+      .style("font-size", "14px")
+      .text(f.label)
       .on("click", () => {
         setStatusFilter(f.key);
-        filterVisibleBlips();
+        applyStatusFilter();
       });
   });
+
+  // INITIAL STYLE
+  applyStatusFilter();
+
+  function applyStatusFilter() {
+    const filter = getActiveStatus();
+
+    d3.selectAll("g.blip-link").each(function(d) {
+      const blip = d;
+      const raw = (typeof blip.status === "function")
+        ? blip.status()
+        : blip.status ?? blip.data?.status ?? "";
+      const st = String(raw).toLowerCase();
+
+      if (filter === "all" || st === filter) {
+        d3.select(this).style("display", null);
+      } else {
+        d3.select(this).style("display", "none");
+      }
+    });
+  }
 }
 
     if (featureToggles.UIRefresh2022) {
