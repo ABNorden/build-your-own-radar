@@ -172,3 +172,24 @@
 .status-filter__btn.is-active {
   outline: 2px solid #3B3B3B; /* 90% Black – aktive Markierung */
 }
+
+
+.status-btn {
+  background: #E10025;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.status-btn:hover {
+  opacity: 0.85;
+}
+
+.status-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
