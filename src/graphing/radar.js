@@ -800,48 +800,47 @@ const Radar = function (size, radar) {
     // --- REMOVE OLD MOVEMENT LEGEND ---
 d3.select('.legend').remove();
 
-// --- CUSTOM FILTER BUTTONS ---
-const { setStatusFilter } = require('./blips');
+//---------------------------------------------------------
+// CUSTOM STATUS FILTER BUTTONS – CREATE ONCE
+//---------------------------------------------------------
 
-const statusBar = d3.select("#radar")
-  .append("div")
-  .attr("class", "status-filter-bar")
-  .style("display", "flex")
-  .style("gap", "10px")
-  .style("margin-top", "20px");
+// Wenn schon vorhanden → NICHT nochmal erstellen
+if (d3.select(".dh-status-filter-bar").empty()) {
+  
+  const statusBar = d3.select("#radar")
+    .append("div")
+    .attr("class", "dh-status-filter-bar")
+    .style("display", "flex")
+    .style("gap", "10px")
+    .style("margin", "20px auto")
+    .style("justify-content", "center");
 
-const filters = [
-  { key: "all",       label: "Alle" },
-  { key: "new",       label: "Neu" },
-  { key: "moved in",  label: "Nach innen" },
-  { key: "moved out", label: "Nach außen" },
-  { key: "no change", label: "Keine Änderung" },
-];
+  const filters = [
+    { key: "all",       label: "Alle" },
+    { key: "new",       label: "Neu" },
+    { key: "moved in",  label: "Nach innen" },
+    { key: "moved out", label: "Nach außen" },
+    { key: "no change", label: "Keine Änderung" }
+  ];
 
-filters.forEach(f => {
-  statusBar.append("button")
-    .attr("class", "status-btn")
-    .style("background", "#E10025")
-    .style("color", "white")
-    .style("padding", "6px 12px")
-    .style("border", "none")
-    .style("border-radius", "4px")
-    .style("cursor", "pointer")
-    .text(f.label)
-    .on("click", () => {
-      setStatusFilter(f.key);
+  const { setStatusFilter } = require("./blips");
 
-      // Blips nicht komplett neu rendern → NUR neu zeichnen
-      d3.selectAll("g.blip-link").remove();
-
-      // Für jede Quadrantengruppe Blips neu zeichnen
-      d3.selectAll(".quadrant-group").each(function(_, i) {
-        const group = d3.select(this);
-        const quadrant = quadrants[i];
-        plotRadarBlips(group, rings, quadrant, tip);
+  filters.forEach(f => {
+    statusBar.append("button")
+      .attr("class", "dh-status-btn")
+      .text(f.label)
+      .style("background", "#E10025")
+      .style("color", "white")
+      .style("padding", "8px 12px")
+      .style("border", "none")
+      .style("border-radius", "4px")
+      .style("cursor", "pointer")
+      .on("click", () => {
+        setStatusFilter(f.key);
+        filterVisibleBlips();
       });
-    });
-});
+  });
+}
 
     if (featureToggles.UIRefresh2022) {
       const legendHeight = 40
@@ -898,3 +897,28 @@ filters.forEach(f => {
 }
 
 module.exports = Radar
+
+//---------------------------------------------------------
+// SHOW/HIDE BLIPS BASED ON STATUS
+//---------------------------------------------------------
+function filterVisibleBlips() {
+  const { getActiveStatus } = require("./blips");
+
+  const filter = getActiveStatus();
+
+  // Alle Blips auswählen
+  d3.selectAll("g.blip-link").each(function(d) {
+    const blip = d;  // D3 data binding
+    const raw = (typeof blip.status === "function")
+      ? blip.status()
+      : blip.status ?? blip.data?.status ?? "";
+
+    const st = String(raw).toLowerCase();
+
+    if (filter === "all" || st === filter) {
+      d3.select(this).style("display", null);
+    } else {
+      d3.select(this).style("display", "none");
+    }
+  });
+}
