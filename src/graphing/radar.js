@@ -797,6 +797,48 @@ const Radar = function (size, radar) {
 
     svg = radarElement.append('svg').call(tip)
 
+//---------------------------------------------------------
+// CUSTOM STATUS FILTER BUTTONS UNDER THE RADAR
+//---------------------------------------------------------
+
+const statusBar = d3.select("#radar")
+  .append("div")
+  .attr("class", "status-filter-bar")
+  .style("margin-top", "20px")
+  .style("display", "flex")
+  .style("gap", "10px");
+
+// Buttons definieren
+const filters = [
+  { key: "all",       label: "Alle" },
+  { key: "new",       label: "Neu" },
+  { key: "moved in",  label: "Nach innen" },
+  { key: "moved out", label: "Nach außen" },
+  { key: "no change", label: "Keine Änderung" },
+];
+
+// Buttons erzeugen
+filters.forEach(f => {
+  statusBar.append("button")
+    .attr("class", "status-btn")
+    .style("background", "#E10025")
+    .style("border", "none")
+    .style("color", "white")
+    .style("padding", "8px 12px")
+    .style("border-radius", "4px")
+    .style("cursor", "pointer")
+    .text(f.label)
+    .on("click", () => {
+      // Filter setzen
+      const { setStatusFilter } = require("./blips");  
+      setStatusFilter(f.key);
+
+      // Radar neu rendern
+      d3.select("#radar").select("svg").remove();
+      self.plot();
+    });
+});
+    
     if (featureToggles.UIRefresh2022) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
@@ -828,7 +870,7 @@ const Radar = function (size, radar) {
     })
 
     if (featureToggles.UIRefresh2022) {
-      renderRadarLegends(radarElement, hasMovementData(quadrants))
+     // renderRadarLegends(radarElement, hasMovementData(quadrants))
       hideTooltipOnScroll(tip)
       addRadarLinkInPdfView()
     }
