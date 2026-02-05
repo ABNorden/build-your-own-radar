@@ -797,18 +797,19 @@ const Radar = function (size, radar) {
 
     svg = radarElement.append('svg').call(tip)
 
-//---------------------------------------------------------
-// CUSTOM STATUS FILTER BUTTONS UNDER THE RADAR
-//---------------------------------------------------------
+    // --- REMOVE OLD MOVEMENT LEGEND ---
+d3.select('.legend').remove();
+
+// --- CUSTOM FILTER BUTTONS ---
+const { setStatusFilter } = require('./blips');
 
 const statusBar = d3.select("#radar")
   .append("div")
   .attr("class", "status-filter-bar")
-  .style("margin-top", "20px")
   .style("display", "flex")
-  .style("gap", "10px");
+  .style("gap", "10px")
+  .style("margin-top", "20px");
 
-// Buttons definieren
 const filters = [
   { key: "all",       label: "Alle" },
   { key: "new",       label: "Neu" },
@@ -817,28 +818,31 @@ const filters = [
   { key: "no change", label: "Keine Änderung" },
 ];
 
-// Buttons erzeugen
 filters.forEach(f => {
   statusBar.append("button")
     .attr("class", "status-btn")
     .style("background", "#E10025")
-    .style("border", "none")
     .style("color", "white")
-    .style("padding", "8px 12px")
+    .style("padding", "6px 12px")
+    .style("border", "none")
     .style("border-radius", "4px")
     .style("cursor", "pointer")
     .text(f.label)
     .on("click", () => {
-      // Filter setzen
-      const { setStatusFilter } = require("./blips");  
       setStatusFilter(f.key);
 
-      // Radar neu rendern
-      d3.select("#radar").select("svg").remove();
-      self.plot();
+      // Blips nicht komplett neu rendern → NUR neu zeichnen
+      d3.selectAll("g.blip-link").remove();
+
+      // Für jede Quadrantengruppe Blips neu zeichnen
+      d3.selectAll(".quadrant-group").each(function(_, i) {
+        const group = d3.select(this);
+        const quadrant = quadrants[i];
+        plotRadarBlips(group, rings, quadrant, tip);
+      });
     });
 });
-    
+
     if (featureToggles.UIRefresh2022) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
