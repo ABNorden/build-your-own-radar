@@ -154,3 +154,21 @@
     }
   }
 }
+
+.status-filter {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 16px 0;
+}
+.status-filter__btn {
+  background: #E10025; /* D+H Rot */
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.status-filter__btn:hover { opacity: .85; }
+.status-filter__btn.is-active {
+  outline: 2px solid #3B3B3B; /* 90% Black – aktive Markierung */
+}
