@@ -12,7 +12,8 @@ function getActiveStatus() {
 
 module.exports = {
   ...module.exports,
-  setStatusFilter
+  setStatusFilter,
+  getActiveStatus
 };
 
 
