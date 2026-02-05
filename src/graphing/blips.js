@@ -1,9 +1,16 @@
-// --- STATUS-FILTER (Self-hosting Erweiterung) ---
+
+// --- STATUS FILTER STATE ---
 let activeStatusFilter = 'all';
 
-export function setStatusFilter(filterKey) {
-  activeStatusFilter = filterKey || 'all';
+function setStatusFilter(key) {
+  activeStatusFilter = key || 'all';
 }
+
+module.exports = {
+  ...module.exports,
+  setStatusFilter
+};
+
 
 const Chance = require('chance')
 const { graphConfig } = require('./config')
