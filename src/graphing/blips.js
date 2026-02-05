@@ -6,6 +6,10 @@ function setStatusFilter(key) {
   activeStatusFilter = key || 'all';
 }
 
+function getActiveStatus() {
+  return activeStatusFilter;
+}
+
 module.exports = {
   ...module.exports,
   setStatusFilter
