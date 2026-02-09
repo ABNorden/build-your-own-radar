@@ -130,7 +130,7 @@ const Radar = function (size, radar) {
 
   function plotRingNames(quadrantGroup, rings, quadrant) {
     rings.forEach(function (ring, i) {
-      const ringNameWithEllipsis = ring.name().length > 10 ? ring.name().slice(0, 10) + '...' : ring.name()
+      const ringNameWithEllipsis = ring.name().length > 11 ? ring.name().slice(0, 11) + '...' : ring.name()
       if (quadrant.order === 'third' || quadrant.order === 'fourth') {
         quadrantGroup
           .append('text')
