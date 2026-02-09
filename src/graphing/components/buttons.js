@@ -7,11 +7,11 @@ function renderButtons(radarFooter) {
     .text('Trendradar drucken')
     .on('click', window.print.bind(window))
 
-  buttonsRow
+  <!--buttonsRow
     .append('a')
     .classed('buttons__flamingo-btn', true)
     .attr('href', window.location.href.substring(0, window.location.href.indexOf(window.location.search)))
-    .text('Neues Radar erstellen')
+    .text('Neues Radar erstellen') -->
 }
 
 module.exports = {
