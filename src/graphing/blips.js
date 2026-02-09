@@ -1,22 +1,3 @@
-
-// --- STATUS FILTER STATE ---
-let activeStatusFilter = 'all';
-
-function setStatusFilter(key) {
-  activeStatusFilter = key || 'all';
-}
-
-function getActiveStatus() {
-  return activeStatusFilter;
-}
-
-module.exports = {
-  ...module.exports,
-  setStatusFilter,
-  getActiveStatus
-};
-
-
 const Chance = require('chance')
 const { graphConfig } = require('./config')
 const { toRadian } = require('../util/mathUtils')
@@ -378,22 +359,11 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   startAngle = quadrantWrapper.startAngle
   quadrantOrder = quadrantWrapper.order
 
- blips = quadrant.blips()
-
-// --- FILTER: Status berücksichtigen (offizielle Werte lt. README) ---
-if (activeStatusFilter !== 'all') {
-  blips = blips.filter(blip => {
-    const raw = (typeof blip.status === "function")
-      ? blip.status()
-      : (blip.status ?? blip.data?.status ?? "");
-    return String(raw).toLowerCase() === activeStatusFilter;
-  });
-}
-
-rings.forEach(function (ring, i) {
-  const ringBlips = blips.filter(function (blip) {
-    return blip.ring() === ring
-  })
+  blips = quadrant.blips()
+  rings.forEach(function (ring, i) {
+    const ringBlips = blips.filter(function (blip) {
+      return blip.ring() === ring
+    })
 
     if (ringBlips.length === 0) {
       return
