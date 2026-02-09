@@ -797,73 +797,6 @@ const Radar = function (size, radar) {
 
     svg = radarElement.append('svg').call(tip)
 
-    // --- REMOVE OLD MOVEMENT LEGEND ---
-d3.select('.legend').remove();
-
-// ---------------------------------------------------------
-// CUSTOM D+H STATUS FILTER BUTTONS – CREATE ONCE
-// ---------------------------------------------------------
-
-const existing = d3.select("#dh-status-filter");
-if (existing.empty()) {
-
-  const { setStatusFilter, getActiveStatus } = require("./blips");
-
-  const bar = d3.select("#radar")
-    .append("div")
-    .attr("id", "dh-status-filter")
-    .style("display", "flex")
-    .style("justify-content", "center")
-    .style("gap", "12px")
-    .style("margin-top", "20px");
-
-  const filters = [
-    { key: "all",       label: "Alle" },
-    { key: "new",       label: "Neu" },
-    { key: "moved in",  label: "Nach innen" },
-    { key: "moved out", label: "Nach außen" },
-    { key: "no change", label: "Keine Änderung" },
-  ];
-
-  filters.forEach(f => {
-    bar.append("button")
-      .attr("class", "dh-status-btn")
-      .style("background", "#E10025")
-      .style("color", "white")
-      .style("padding", "8px 14px")
-      .style("border", "none")
-      .style("border-radius", "4px")
-      .style("cursor", "pointer")
-      .style("font-size", "14px")
-      .text(f.label)
-      .on("click", () => {
-        setStatusFilter(f.key);
-        applyStatusFilter();
-      });
-  });
-
-  // INITIAL STYLE
-  applyStatusFilter();
-
-  function applyStatusFilter() {
-    const filter = getActiveStatus();
-
-    d3.selectAll("g.blip-link").each(function(d) {
-      const blip = d;
-      const raw = (typeof blip.status === "function")
-        ? blip.status()
-        : blip.status ?? blip.data?.status ?? "";
-      const st = String(raw).toLowerCase();
-
-      if (filter === "all" || st === filter) {
-        d3.select(this).style("display", null);
-      } else {
-        d3.select(this).style("display", "none");
-      }
-    });
-  }
-}
-
     if (featureToggles.UIRefresh2022) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
@@ -895,7 +828,7 @@ if (existing.empty()) {
     })
 
     if (featureToggles.UIRefresh2022) {
-     // renderRadarLegends(radarElement, hasMovementData(quadrants))
+      renderRadarLegends(radarElement, hasMovementData(quadrants))
       hideTooltipOnScroll(tip)
       addRadarLinkInPdfView()
     }
@@ -919,28 +852,3 @@ if (existing.empty()) {
 }
 
 module.exports = Radar
-
-//---------------------------------------------------------
-// SHOW/HIDE BLIPS BASED ON STATUS
-//---------------------------------------------------------
-function filterVisibleBlips() {
-  const { getActiveStatus } = require("./blips");
-
-  const filter = getActiveStatus();
-
-  // Alle Blips auswählen
-  d3.selectAll("g.blip-link").each(function(d) {
-    const blip = d;  // D3 data binding
-    const raw = (typeof blip.status === "function")
-      ? blip.status()
-      : blip.status ?? blip.data?.status ?? "";
-
-    const st = String(raw).toLowerCase();
-
-    if (filter === "all" || st === filter) {
-      d3.select(this).style("display", null);
-    } else {
-      d3.select(this).style("display", "none");
-    }
-  });
-}
