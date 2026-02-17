@@ -5,11 +5,11 @@
   .hero-banner {
     height: $tabletBannerHeight;
     background-color: $d_hred;
-   <!-- background-image: url('/images/banner-image-mobile.jpg'); -->
+    background-image: url('/images/banner-image-mobile.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
-    color: $white;
+    color: $d_hred;
     display: flex;
     align-items: center;
     margin: 0 !important;
