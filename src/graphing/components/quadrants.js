@@ -229,9 +229,14 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
     }
   }
   
-   if (text.includes('/')) {
-    element.innerHTML += '<tspan x="0">' + text + '</tspan>'
-    document.getElementById('text-width-check').remove()
+  const hasSlashSeparator = /[/⁄∕]/.test(text)
+  if (hasSlashSeparator) {
+    const slashText = document.createElementNS('http://www.w3.org/2000/svg', 'tspan')
+    slashText.setAttribute('x', '0')
+    slashText.textContent = text
+    element.innerHTML = ''
+    element.appendChild(slashText)
+    document.getElementById('text-width-check')?.remove()
     return
   }
 
