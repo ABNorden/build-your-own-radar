@@ -54,34 +54,9 @@
         </span>
       </div>
       <div id="error-container" class="error-container home-page"></div>
-      <div class="input-sheet-form home-page">
-        <p>
-          Enter the URL of your
-          <a href="https://www.thoughtworks.com/radar/byor" target="_blank">Google Sheet, CSV or JSON</a> file below…
-        </p>
-        <form id="byor-form-submit" method="get">
-          <input
-            type="text"
-            name="documentId"
-            id="document-input"
-            placeholder="e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file"
-            required=""
-          />
-          <input type="submit" value="Build my radar" />
-          <a href="https://www.thoughtworks.com/radar/byor#guide">Need help?</a>
-        </form>
-      </div>
+       <div class="input-sheet-form home-page"></div>
       <div class="graph-header"></div>
-
-      <!-- Status-Filter (Self-hosted Erweiterung) 
-<div class="status-filter">
-  <button class="status-filter__btn" data-key="all">Alle</button>
-  <button class="status-filter__btn" data-key="new">Neu</button>
-  <button class="status-filter__btn" data-key="moved in">Nach innen</button>
-  <button class="status-filter__btn" data-key="moved out">Nach außen</button>
-  <button class="status-filter__btn" data-key="no change">Keine Änderung</button>
-</div> -->
-      
+    
       <div id="radar">
         <p class="no-blip-text">
           There are no blips on this quadrant, please check your Google sheet/CSV/JSON file once.
@@ -119,33 +94,18 @@
       </div>
     </div>
     <script>
-  // 1) Deine CSV-URL zentral definieren:
-  window.BYOR_PRELOAD_URL = "https://trendradar.projektemitherz.de/radar.csv";
+  window.BYOR_PRELOAD_URL = 'https://trendradar.projektemitherz.de/radar.csv'
 
-  // 2) Wenn die Seite (und das BYOR-Formular) geladen sind:
-  window.addEventListener("load", function () {
-    try {
-      const url  = window.BYOR_PRELOAD_URL;
-      const form = document.getElementById("byor-form-submit");
-      const input = document.getElementById("document-input");
+ window.addEventListener('load', function () {
+    const preloadUrl = window.BYOR_PRELOAD_URL
+    const currentUrl = new URL(window.location.href)
 
-      // Falls BYOR die Elemente noch nicht erzeugt hat, kurz verzögern:
-      const trigger = () => {
-        const f = document.getElementById("byor-form-submit");
-        const i = document.getElementById("document-input");
-        if (f && i && url) {
-          i.value = url;
-          f.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-        } else {
-          // Wiederholen bis DOM-Elemente da sind (max 2s)
-          setTimeout(trigger, 100);
-        }
-      };
-      trigger();
-    } catch (e) {
-      console.error("Autoload-Fehler:", e);
+         if (!preloadUrl || currentUrl.searchParams.get('documentId')) {
+      return
     }
-  });
+    currentUrl.searchParams.set('documentId', preloadUrl)
+    window.location.replace(currentUrl.toString())
+  })
 </script>
   </body>
 </html>
