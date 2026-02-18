@@ -229,9 +229,8 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
     }
   }
   
-  if (text.includes('/')) {
-    const lineBreakIndex = maxCharactersToFit(text, '...')
-    element.innerHTML += '<tspan x="0">' + text.substring(0, lineBreakIndex) + ellipsis(lineBreakIndex, text) + '</tspan>'
+   if (text.includes('/')) {
+    element.innerHTML += '<tspan x="0">' + text + '</tspan>'
     document.getElementById('text-width-check').remove()
     return
   }
