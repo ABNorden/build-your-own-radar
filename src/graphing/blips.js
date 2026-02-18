@@ -203,16 +203,17 @@ function newBlip(blip, xValue, yValue, order, group) {
 
 function movedInBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
-  addMovedInLine(group, order, blip.scale)
+  addOuterCircle(group, order, blip.scale)
 }
 
 function movedOutBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
-  addMovedOutLine(group, order, blip.scale)
+  addOuterCircle(group, order, blip.scale)
 }
 
 function existingBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
+  addOuterCircle(group, order, blip.scale)
 }
 
 function groupBlip(blip, xValue, yValue, order, group) {
@@ -243,6 +244,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .attr('id', 'blip-link-' + blipId)
     .attr('data-blip-id', blipId)
     .attr('data-ring-name', blip.ring().name())
+    .attr('data-status', blip.status())
 
   if (blip.isGroup()) {
     groupBlip(blip, x, y, order, group)
