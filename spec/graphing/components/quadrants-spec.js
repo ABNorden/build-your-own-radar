@@ -48,7 +48,7 @@ describe('Quadrants', function () {
     expect(expectedTSpanTags[1].getAttribute('dy')).toBe('20')
   })
 
-    it('should render slash-separated text in one line without truncation', function () {
+  it('should render slash-separated text in one line without truncation', function () {
     element.innerHTML = 'Industrie/Branche'
     wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
@@ -56,6 +56,17 @@ describe('Quadrants', function () {
     expect(expectedTSpanTags[0].textContent).toEqual('Industrie/Branche')
     expect(expectedTSpanTags[0].getAttribute('dy')).toBeNull()
   })
+
+
+  it('should render unicode-slash-separated text in one line without truncation', function () {
+    element.innerHTML = 'Industrie⁄Branche'
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
+    let expectedTSpanTags = element.querySelectorAll('tspan')
+    expect(expectedTSpanTags).toHaveLength(1)
+    expect(expectedTSpanTags[0].textContent).toEqual('Industrie⁄Branche')
+    expect(expectedTSpanTags[0].getAttribute('dy')).toBeNull()
+  })
+
   
   it('should split the first word by hyphen and render the text in two lines if its longer than max length', function () {
     element.innerHTML = 'Pneumonoultramicroscopic'
