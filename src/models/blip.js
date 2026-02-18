@@ -8,6 +8,10 @@ const Blip = function (name, ring, isNew, status, topic, description) {
 
   self.width = IDEAL_BLIP_WIDTH
 
+  function normalizeStatus() {
+    return (status || '').toString().trim().toLowerCase()
+  }
+  
   self.name = function () {
     return name
   }
@@ -30,26 +34,26 @@ const Blip = function (name, ring, isNew, status, topic, description) {
 
   self.isNew = function () {
     if (status) {
-      return status.toLowerCase() === 'new'
+      return normalizeStatus() === 'new'
     }
 
     return isNew
   }
 
   self.hasMovedIn = function () {
-    return status.toLowerCase() === 'moved in'
+    return normalizeStatus() === 'moved in'
   }
 
   self.hasMovedOut = function () {
-    return status.toLowerCase() === 'moved out'
+    return normalizeStatus() === 'moved out'
   }
 
   self.hasNoChange = function () {
-    return status.toLowerCase() === 'no change'
+    return normalizeStatus() === 'no change'
   }
 
   self.status = function () {
-    return status.toLowerCase() || ''
+    return normalizeStatus() || ''
   }
 
   self.isGroup = function () {
