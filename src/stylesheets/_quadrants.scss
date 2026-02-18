@@ -379,6 +379,9 @@
 }
 
 @if ($UIRefresh2022) {
+   g.is-hidden-by-status-filter {
+    display: none;
+  }
   .radar-legends {
     display: none;
 
