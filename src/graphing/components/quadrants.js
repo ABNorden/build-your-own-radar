@@ -401,46 +401,36 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
   return quadrantGroup
 }
 
-function renderRadarLegends(radarElement, hasMovements) {
+function renderRadarLegends(radarElement) {
   const legendsContainer = radarElement.append('div').classed('radar-legends', true)
 
-  const newImage = legendsContainer
-    .append('img')
-    .attr('src', '/images/new.svg')
-    .attr('width', '37px')
-    .attr('height', '37px')
-    .attr('alt', 'new blip legend icon')
-    .node().outerHTML
+  ;['A', 'B', 'C'].forEach((category) => {
+    const normalizedCategory = category.toLowerCase()
 
-  const movedImage = legendsContainer
-    .append('img')
-    .attr('src', '/images/moved.svg')
-    .attr('width', '37px')
-    .attr('height', '37px')
-    .attr('alt', `moved in or out blip legend icon`)
-    .node().outerHTML
+    legendsContainer
+      .append('button')
+      .attr('type', 'button')
+      .attr('class', 'radar-legends__filter-btn')
+      .attr('data-status-filter', normalizedCategory)
+      .attr('aria-pressed', 'false')
+      .text(category)
+      .on('click', function () {
+        const button = d3.select(this)
+        const isDisabled = !button.classed('is-active')
 
-  const existingImage = legendsContainer
-    .append('img')
-    .attr('src', '/images/existing.svg')
-    .attr('width', '37px')
-    .attr('height', '37px')
-    .attr('alt', 'existing blip legend icon')
-    .node().outerHTML
+        if (isDisabled) {
+          hiddenStatusCategories.delete(normalizedCategory)
+        } else {
+          hiddenStatusCategories.add(normalizedCategory)
+        }
 
-  const noChangeImage = legendsContainer
-    .append('img')
-    .attr('src', '/images/no-change.svg')
-    .attr('width', '37px')
-    .attr('height', '37px')
-    .attr('alt', 'no change blip legend icon')
-    .node().outerHTML
+        button.classed('is-active', isDisabled).attr('aria-pressed', String(!isDisabled))
+        applyStatusCategoryFilter()
+      })
+      .classed('is-active', true)
+  })
 
-  if (hasMovements) {
-    legendsContainer.html(`${newImage} Neu ${movedImage} Rein/raus ${noChangeImage} Keine Änderung`)
-  } else {
-    legendsContainer.html(`${newImage} Neu ${existingImage} Bestehend`)
-  }
+  applyStatusCategoryFilter() 
 }
 
 function renderMobileView(quadrant) {
