@@ -228,6 +228,13 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
       return '...'
     }
   }
+  
+  if (text.includes('/')) {
+    const lineBreakIndex = maxCharactersToFit(text, '...')
+    element.innerHTML += '<tspan x="0">' + text.substring(0, lineBreakIndex) + ellipsis(lineBreakIndex, text) + '</tspan>'
+    document.getElementById('text-width-check').remove()
+    return
+  }
 
   if (testElem.getBoundingClientRect().width > maxWidth) {
     for (let i = 0; i < words.length; i++) {
