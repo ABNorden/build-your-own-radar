@@ -18,6 +18,41 @@ const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = 
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
 let scrollFlag = false
+const hiddenStatusCategories = new Set()
+
+function normalizeStatusValue(status) {
+  return (status || '').toString().trim().toLowerCase()
+}
+
+function extractStatusCategory(status) {
+  const normalizedStatus = normalizeStatusValue(status)
+  if (!normalizedStatus) {
+    return ''
+  }
+
+  const categoryMatch = normalizedStatus.match(/[abc]/)
+  return categoryMatch ? categoryMatch[0] : ''
+}
+
+function getStatusFromBlipNode(node) {
+  const statusFromAttribute = normalizeStatusValue(node.getAttribute('data-status'))
+  if (statusFromAttribute) {
+    return statusFromAttribute
+  }
+
+  const data = node.__data__ || {}
+  const statusFromData = typeof data.status === 'function' ? data.status() : data.status
+  return normalizeStatusValue(statusFromData)
+}
+
+function applyStatusCategoryFilter() {
+  d3.selectAll('a.blip-link').each(function () {
+    const statusCategory = extractStatusCategory(getStatusFromBlipNode(this))
+    const shouldHide = statusCategory !== '' && hiddenStatusCategories.has(statusCategory)
+
+    d3.select(this.parentNode).style('display', shouldHide ? 'none' : null)
+  })
+}
 
 function selectRadarQuadrant(order, startAngle, name) {
   const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
