@@ -30,8 +30,17 @@ function extractStatusCategory(status) {
     return ''
   }
 
-  const categoryMatch = normalizedStatus.match(/[abc]/)
-  return categoryMatch ? categoryMatch[0] : ''
+  if (['a', 'b', 'c'].includes(normalizedStatus)) {
+    return normalizedStatus
+  }
+
+  const statusPrefixMatch = normalizedStatus.match(/(?:^|\s)status\s*([abc])(?:\s|$)/)
+  if (statusPrefixMatch) {
+    return statusPrefixMatch[1]
+  }
+
+  const isolatedCategoryMatch = normalizedStatus.match(/(?:^|[^a-z])([abc])(?:[^a-z]|$)/)
+  return isolatedCategoryMatch ? isolatedCategoryMatch[1] : ''
 }
 
 function getStatusFromBlipNode(node) {
