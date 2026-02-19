@@ -11,6 +11,21 @@ const _ = {
   sortBy: require('lodash/sortBy'),
 }
 
+function normalizeStatusValue(status) {
+  return (status || '').toString().trim().toLowerCase()
+}
+
+function getStatusCategory(status) {
+  const normalizedStatus = normalizeStatusValue(status)
+  const categoryMatch = normalizedStatus.match(/[abc]/)
+  return categoryMatch ? categoryMatch[0] : ''
+}
+
+function getBlipStatusClassName(blip) {
+  const statusCategory = getStatusCategory(blip.status())
+  return statusCategory ? `status-${statusCategory}` : ''
+}
+
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
   const radius = ratios[ringIndex] * graphConfig.quadrantWidth
