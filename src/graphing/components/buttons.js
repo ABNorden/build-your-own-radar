@@ -1,11 +1,5 @@
 function renderButtons(radarFooter) {
-  const buttonsRow = radarFooter.append('div').classed('buttons', true)
-
-  buttonsRow
-    .append('button')
-    .classed('buttons__wave-btn', true)
-    .text('Trendradar drucken')
-    .on('click', window.print.bind(window))
+radarFooter.append('div').classed('buttons', true)
 }
 
 module.exports = {
