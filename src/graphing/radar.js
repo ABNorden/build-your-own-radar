@@ -15,12 +15,7 @@ const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
 const { renderSearch } = require('./components/search')
 const { renderAlternativeRadars } = require('./components/alternativeRadars')
 const { renderButtons } = require('./components/buttons')
-const {
-  renderRadarQuadrants,
-  renderMobileView,
-  renderRadarLegends,
-  removeScrollListener,
-} = require('./components/quadrants')
+const { renderRadarQuadrants, renderRadarLegends, removeScrollListener } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
 const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
 
