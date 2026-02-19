@@ -53,14 +53,28 @@ function applyStatusCategoryFilter() {
     d3.select(this.parentNode).style('display', shouldHide ? 'none' : null)
   })
 
-    d3.selectAll('.blip-list__item').each(function () {
+  d3.selectAll('.blip-list__item').each(function () {
     const statusCategory = extractStatusCategory(normalizeStatusValue(this.getAttribute('data-status')))
     const shouldHide = statusCategory !== '' && hiddenStatusCategories.has(statusCategory)
 
     d3.select(this).style('display', shouldHide ? 'none' : null)
   })
-}
 
+  d3.selectAll('.quadrant-table ul.blip-list').each(function () {
+    const hasVisibleBlips = d3
+      .select(this)
+      .selectAll('.blip-list__item')
+      .filter(function () {
+        return d3.select(this).style('display') !== 'none'
+      })
+      .size() > 0
+
+    const ringHeading = this.previousElementSibling
+    if (ringHeading && ringHeading.classList.contains('quadrant-table__ring-name')) {
+      d3.select(ringHeading).style('display', hasVisibleBlips ? null : 'none')
+    }
+  })
+}
 function selectRadarQuadrant(order, startAngle, name) {
   const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
   d3.select('#radar').classed('no-blips', noOfBlips === 0)
