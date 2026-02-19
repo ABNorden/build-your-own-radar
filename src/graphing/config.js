@@ -39,8 +39,8 @@ const uiConfig = {
   tabletBannerHeight: 300,
   headerHeight: 80,
   legendsHeight: 42,
-  tabletViewWidth: 0,
-  mobileViewWidth: 0,
+  tabletViewWidth: 1280,
+  mobileViewWidth: 768,
 }
 
 function getScale() {
