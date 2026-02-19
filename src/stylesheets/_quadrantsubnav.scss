@@ -7,7 +7,8 @@
     width: 100%;
     background-color: $mist;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     height: fit-content;
     min-height: $subnavHeight;
 
@@ -25,66 +26,33 @@
       z-index: 999;
     }
 
-    &__dropdown {
-      height: fit-content;
-      min-height: $subnavHeight;
-      font-weight: 630;
-      display: inline-flex;
-      border-bottom: 1px solid $mist-s20;
-      align-items: center;
+    &__list {
+      display: flex;
       flex-direction: row;
       justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-
-      &-arrow {
-        width: 8px;
-        height: 8px;
-        display: inline-flex;
-        rotate: 45deg;
-        border: 1px solid $flamingo;
-        border-width: 0 2px 2px 0;
-        margin-top: 0;
-        margin-bottom: 4px;
-        -webkit-transition: all 0.2s ease;
-        transition: all 0.2s ease;
-
-        &.rotate {
-          rotate: -135deg;
-          margin-bottom: 0;
-          margin-top: 4px;
-        }
-      }
-
-      @include media-query-xlarge {
-        display: none;
-      }
-    }
-
-    &__list {
-      display: none;
+      align-items: center;
       width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: auto;
+      list-style-type: none;
+
 
       &.show {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+      flex-direction: row;
       }
 
       &-item {
-        width: 100%;
+        width: unset;
         min-height: $subnavHeight;
         display: inline-flex;
         align-items: center;
-        border-bottom: 1px solid $mist-s20;
         justify-content: center;
         padding: 0;
         height: 100%;
         box-sizing: border-box;
         font-size: 16px;
+        border: none;
 
         @include media-query-xlarge {
           max-width: 20% !important;
@@ -124,33 +92,23 @@
           cursor: pointer;
           background-color: $mist;
 
+          padding: 15px 20px;
+          margin: 0 1px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          
           @include media-query-xlarge {
             padding: 15px 40px;
-            margin: 0 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
           }
         }
       }
 
       @include media-query-xlarge {
         height: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-
-        &.show {
-          flex-direction: row;
-        }
 
         &-item {
-          width: unset;
           min-height: unset;
-          border: none;
 
           &:not(.active-item):hover {
             color: $flamingo-s40;
