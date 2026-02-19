@@ -48,7 +48,7 @@
     right: 0;
 
     @if $UIRefresh2022 {
-      display: none;
+      display: block;
       transition: none;
 
       margin: 0 auto;
@@ -57,9 +57,6 @@
         transition: all 1s ease;
       }
 
-      @include media-query-medium {
-        display: block;
-      }
     }
 
     &.quadrant-view {
@@ -467,7 +464,7 @@
     margin-bottom: 42px;
 
     &.show-all-quadrants-mobile {
-      display: flex;
+      display: none;
     }
     @include media-query-medium {
       --quadrant-btn-width-mobile: 345px;
