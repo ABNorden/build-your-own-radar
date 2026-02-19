@@ -804,7 +804,6 @@ const Radar = function (size, radar) {
         const ringTextGroup = quadrantGroup.append('g')
         plotRingNames(ringTextGroup, rings, quadrant)
         plotRadarBlips(quadrantGroup, rings, quadrant, tip)
-        renderMobileView(quadrant)
         addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name())
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant)
