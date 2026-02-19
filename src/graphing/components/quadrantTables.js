@@ -24,7 +24,10 @@ function highlightBlipInGraph(blipIdToFocus) {
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul[data-ring-order='${ring.order()}']`)
   if (!groupBlipTooltipText) {
-    blipTableItem = blipTableItem.append('li').classed('blip-list__item', true)
+ blipTableItem = blipTableItem
+      .append('li')
+      .classed('blip-list__item', true)
+      .attr('data-status', blip.status())
     const blipItemDiv = blipTableItem
       .append('div')
       .classed('blip-list__item-container', true)
