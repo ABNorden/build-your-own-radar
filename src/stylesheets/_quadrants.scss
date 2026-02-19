@@ -38,16 +38,6 @@
     .mobile {
       display: block;
     }
-
-    &:not(.mobile) {
-      display: none;
-    }
-
-    @include media-query-xlarge {
-      &:not(.mobile) {
-        display: block;
-      }
-    }
   }
 
   svg#radar-plot {
