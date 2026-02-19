@@ -193,3 +193,11 @@
   gap: 12px;
   margin-top: 20px;
 }
+
+@media (max-width: 767px) {
+  .mobile-header,
+  .mobile-header.mobile-only,
+  .mobile-header-menu {
+    display: none !important;
+  }
+}
