@@ -155,6 +155,18 @@
     circle,
     polygon,
     path {
+      &.status-a {
+        fill: $d_hred;
+      }
+
+      &.status-b {
+        fill: $d_horange;
+      }
+
+      &.status-c {
+        fill: $d_hdarkblue;
+      }
+      
       &.first {
         fill: $green;
         stroke: none;
@@ -200,6 +212,18 @@
       polygon,
       rect,
       path {
+        &.status-a {
+          fill: $d_hred;
+        }
+
+        &.status-b {
+          fill: $d_horange;
+        }
+
+        &.status-c {
+          fill: $d_hdarkblue;
+        }
+        
         &.first {
           fill: $sapphire-dark;
           stroke: none;
@@ -423,6 +447,18 @@
         opacity: 1;
       }
 
+      &[data-status-filter='a'] {
+        background-color: $d_hred;
+      }
+
+      &[data-status-filter='b'] {
+        background-color: $d_horange;
+      }
+
+      &[data-status-filter='c'] {
+        background-color: $d_hdarkblue;
+      }
+      
       &:not(.is-active) {
         background-color: #b9bfc4;
         color: $black;
