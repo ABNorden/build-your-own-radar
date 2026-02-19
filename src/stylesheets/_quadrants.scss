@@ -183,7 +183,7 @@
       }
 
       &.status-c {
-        fill: $d_hskyblue;
+        fill: $strongblack;
       }
     }
 
@@ -220,7 +220,7 @@
         }
 
         &.status-c {
-          fill: $d_hskyblue;
+          fill: $strongblack;
         }
         
         &.first {
@@ -455,7 +455,7 @@
       }
 
       &[data-status-filter='c'] {
-        background-color: $d_hskyblue;
+        background-color: $strongblack;
       }
       
       &:not(.is-active) {
