@@ -1,4 +1,4 @@
-#radar {
+  #radar {
   width: 80%;
   margin: 0 auto;
   position: relative;
@@ -154,19 +154,7 @@
 
     circle,
     polygon,
-    path {
-      &.status-a {
-        fill: $d_hred;
-      }
-
-      &.status-b {
-        fill: $d_horange;
-      }
-
-      &.status-c {
-        fill: $d_hdarkblue;
-      }
-      
+    path {   
       &.first {
         fill: $green;
         stroke: none;
@@ -185,6 +173,17 @@
       &.fourth {
         fill: $violet;
         stroke: none;
+      }
+      &.status-a {
+        fill: $d_hgrey;
+      }
+
+      &.status-b {
+        fill: $d_hbluegrey;
+      }
+
+      &.status-c {
+        fill: $d_hskyblue;
       }
     }
 
@@ -213,15 +212,15 @@
       rect,
       path {
         &.status-a {
-          fill: $d_hred;
+          fill: $d_hgrey;
         }
 
         &.status-b {
-          fill: $d_horange;
+          fill: $d_hbluegrey;
         }
 
         &.status-c {
-          fill: $d_hdarkblue;
+          fill: $d_hskyblue;
         }
         
         &.first {
@@ -448,15 +447,15 @@
       }
 
       &[data-status-filter='a'] {
-        background-color: $d_hred;
+        background-color: $d_hgrey;
       }
 
       &[data-status-filter='b'] {
-        background-color: $d_horange;
+        background-color: $d_hbluegrey;
       }
 
       &[data-status-filter='c'] {
-        background-color: $d_hdarkblue;
+        background-color: $d_hskyblue;
       }
       
       &:not(.is-active) {
