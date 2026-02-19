@@ -52,6 +52,13 @@ function applyStatusCategoryFilter() {
 
     d3.select(this.parentNode).style('display', shouldHide ? 'none' : null)
   })
+
+    d3.selectAll('.blip-list__item').each(function () {
+    const statusCategory = extractStatusCategory(normalizeStatusValue(this.getAttribute('data-status')))
+    const shouldHide = statusCategory !== '' && hiddenStatusCategories.has(statusCategory)
+
+    d3.select(this).style('display', shouldHide ? 'none' : null)
+  })
 }
 
 function selectRadarQuadrant(order, startAngle, name) {
