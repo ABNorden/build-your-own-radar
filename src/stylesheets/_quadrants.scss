@@ -210,19 +210,7 @@
       circle,
       polygon,
       rect,
-      path {
-        &.status-a {
-          fill: $d_hgrey;
-        }
-
-        &.status-b {
-          fill: $d_hbluegrey;
-        }
-
-        &.status-c {
-          fill: $strongblack;
-        }
-        
+      path {       
         &.first {
           fill: $sapphire-dark;
           stroke: none;
@@ -241,6 +229,17 @@
         &.fourth {
           fill: $flamingo-dark;
           stroke: none;
+        }
+        &.status-a {
+          fill: $d_hgrey;
+        }
+
+        &.status-b {
+          fill: $d_hbluegrey;
+        }
+
+        &.status-c {
+          fill: $strongblack;
         }
       }
 
