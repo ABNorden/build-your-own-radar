@@ -17,8 +17,21 @@ function normalizeStatusValue(status) {
 
 function getStatusCategory(status) {
   const normalizedStatus = normalizeStatusValue(status)
-  const categoryMatch = normalizedStatus.match(/[abc]/)
-  return categoryMatch ? categoryMatch[0] : ''
+  if (!normalizedStatus) {
+    return ''
+  }
+
+  if (['a', 'b', 'c'].includes(normalizedStatus)) {
+    return normalizedStatus
+  }
+
+  const statusPrefixMatch = normalizedStatus.match(/(?:^|\s)status\s*([abc])(?:\s|$)/)
+  if (statusPrefixMatch) {
+    return statusPrefixMatch[1]
+  }
+
+  const isolatedCategoryMatch = normalizedStatus.match(/(?:^|[^a-z])([abc])(?:[^a-z]|$)/)
+  return isolatedCategoryMatch ? isolatedCategoryMatch[1] : ''
 }
 
 function getBlipStatusClassName(blip) {
@@ -234,6 +247,8 @@ function existingBlip(blip, xValue, yValue, order, group) {
 }
 
 function groupBlip(blip, xValue, yValue, order, group) {
+  const statusClassName = getBlipStatusClassName(blip)
+  
   group.attr('transform', `scale(1) translate(${xValue}, ${yValue})`).attr('aria-label', blipAssistiveText(blip))
   group
     .append('rect')
