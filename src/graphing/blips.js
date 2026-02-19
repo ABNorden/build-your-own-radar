@@ -199,6 +199,8 @@ function addMovedOutLine(parentSvg, order, scale = 1) {
 }
 
 function drawBlipCircle(group, blip, xValue, yValue, order) {
+    const statusClassName = getBlipStatusClassName(blip)
+  
   group
     .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 16})`)
     .attr('aria-label', blipAssistiveText(blip))
@@ -207,7 +209,7 @@ function drawBlipCircle(group, blip, xValue, yValue, order) {
     .attr('r', '12')
     .attr('cx', '18')
     .attr('cy', '18')
-    .attr('class', order)
+    .attr('class', `${order} ${statusClassName}`.trim())
     .style('transform', `scale(${blip.scale || 1})`)
 }
 
@@ -241,7 +243,7 @@ function groupBlip(blip, xValue, yValue, order, group) {
     .attr('ry', '12')
     .attr('width', blip.groupBlipWidth())
     .attr('height', graphConfig.groupBlipHeight)
-    .attr('class', order)
+    .attr('class', `${order} ${statusClassName}`.trim())
     .style('transform', `scale(${blip.scale || 1})`)
 }
 
