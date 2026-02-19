@@ -13,7 +13,7 @@ function addListItem(quadrantList, name, callback) {
     .classed('quadrant-subnav__list-item__button', true)
     .attr('role', 'tab')
     .text(name)
-    .on('click', function (e) {
+    .on('click', function () {
       d3.select('#radar').classed('no-blips', false)
       d3.select('#auto-complete').property('value', '')
       removeScrollListener()
@@ -21,15 +21,6 @@ function addListItem(quadrantList, name, callback) {
       d3.select('.graph-header').node().scrollIntoView({
         behavior: 'smooth',
       })
-
-      d3.select('span.quadrant-subnav__dropdown-selector').text(e.target.innerText)
-
-      const subnavArrow = d3.select('.quadrant-subnav__dropdown-arrow')
-      subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
-      quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
-
-      const subnavDropdown = d3.select('.quadrant-subnav__dropdown')
-      subnavDropdown.attr('aria-expanded', subnavDropdown.attr('aria-expanded') === 'false' ? 'true' : 'false')
 
       d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
 
@@ -42,23 +33,9 @@ function addListItem(quadrantList, name, callback) {
 function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   const subnavContainer = radarHeader.append('nav').classed('quadrant-subnav', true)
 
-  const subnavDropdown = subnavContainer
-    .append('div')
-    .classed('quadrant-subnav__dropdown', true)
-    .attr('aria-expanded', 'false')
-  subnavDropdown.append('span').classed('quadrant-subnav__dropdown-selector', true).text('Alle Quadranten')
-  const subnavArrow = subnavDropdown.append('span').classed('quadrant-subnav__dropdown-arrow', true)
-
   const quadrantList = subnavContainer.append('ul').classed('quadrant-subnav__list', true)
   addListItem(quadrantList, 'Alle Quadranten', renderFullRadar)
   d3.select('li.quadrant-subnav__list-item').classed('active-item', true).select('button').attr('aria-selected', 'true')
-
-  subnavDropdown.on('click', function () {
-    subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
-    quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
-
-    subnavDropdown.attr('aria-expanded', subnavDropdown.attr('aria-expanded') === 'false' ? 'true' : 'false')
-  })
 
   quadrants.forEach(function (quadrant) {
     addListItem(quadrantList, quadrant.quadrant.name(), () =>
