@@ -22,7 +22,7 @@
       display: flex;
       background-image: url('/images/banner-image-desktop.jpg');
       height: $bannerHeight;
-      background-size: cover;
+      background-size: 80% auto;
     }
 
     &__wrapper {
