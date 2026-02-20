@@ -30,6 +30,17 @@ function renderBanner(renderFullRadar) {
       .append('div')
       .attr('class', 'radar-title__logo')
       .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+    
+    const updateLogoScale = () => {
+      const zoomScale = window.visualViewport?.scale || window.devicePixelRatio || 1
+      const inverseScale = 1 / zoomScale
+
+      d3.select('.radar-title__logo img').style('--logo-inverse-zoom-scale', inverseScale)
+    }
+
+    updateLogoScale()
+    window.addEventListener('resize', updateLogoScale)
+    window.visualViewport?.addEventListener('resize', updateLogoScale)
   }
 }
 
