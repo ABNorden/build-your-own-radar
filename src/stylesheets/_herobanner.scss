@@ -28,6 +28,7 @@
     &__wrapper {
       margin: auto;
       width: 90%;
+      position: relative;
 
       @include layout-margin(1, $screen-small);
       @include layout-margin(1, $screen-medium);
@@ -36,7 +37,20 @@
       @include layout-margin(1, $screen-xxlarge);
       @include layout-margin(1, $screen-xxxlarge);
     }
+    
+  &__logo {
+      border-bottom: none;
+      position: absolute;
+      right: 0;
+      top: 0;
 
+      img {
+        width: 170px;
+        transform: scale(var(--logo-inverse-zoom-scale, 1));
+        transform-origin: top right;
+      }
+    }
+    
     &__title-text {
       width: fit-content;
       text-align: left;
