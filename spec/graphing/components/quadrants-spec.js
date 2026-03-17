@@ -49,7 +49,7 @@ describe('Quadrants', function () {
   })
 
   it('should render slash-separated text in one line without truncation', function () {
-    element.innerHTML = 'Industrie/Branche'
+    element.innerHTML = 'Branche'
     wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(1)
@@ -59,7 +59,7 @@ describe('Quadrants', function () {
 
 
   it('should render unicode-slash-separated text in one line without truncation', function () {
-    element.innerHTML = 'Industrie⁄Branche'
+    element.innerHTML = 'Branche'
     wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(1)
