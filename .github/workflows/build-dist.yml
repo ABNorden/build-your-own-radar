@@ -7,13 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      # Reihenfolge der Ringe = von innen nach außen
-      RINGS: '["0-5 Jahre","5-10 Jahre","10-15 Jahre"]'
-      # Reihenfolge der Quadranten = im Uhrzeigersinn ab oben rechts
-      QUADRANTS: '["Industrie/Branche","Technologie","Produktion","Mitarbeitende"]'
-
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
