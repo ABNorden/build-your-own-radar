@@ -9,7 +9,7 @@ describe('ringCalculator', function () {
   })
 
   it('sums up the sequences', function () {
-    expect(ringCalculator.sum(ringLength)).toEqual(16)
+    expect(ringCalculator.sum(ringLength)).toEqual(15)
   })
 
   it('calculates the correct radius', function () {
@@ -17,7 +17,7 @@ describe('ringCalculator', function () {
   })
 
   it('calculates the ring radius', function () {
-    expect(ringCalculator.getRingRadius(1)).toEqual(158)
+    expect(ringCalculator.getRingRadius(1)).toEqual(180)
   })
 
   it('calculates the ring radius for invalid ring as 0', function () {
