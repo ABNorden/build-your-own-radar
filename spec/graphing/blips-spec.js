@@ -121,8 +121,8 @@ describe('Blips', function () {
   it('should return first quadrant group blip coordinates for ring1', function () {
     const baseCoords = groupBlipsBaseCoords(0)
 
-    expect(baseCoords.new).toEqual([410.18709878722615, 436.92])
-    expect(baseCoords['existing']).toEqual([370.18709878722615, 465.92])
+    expect(baseCoords.new).toEqual([394.22451854467135, 427.704])
+    expect(baseCoords['existing']).toEqual([354.22451854467135, 456.704])
   })
 
   it('should transpose base coords for a new blip in ring1 to other three quadrants', function () {
@@ -130,15 +130,15 @@ describe('Blips', function () {
 
     const coordsMap = transposeQuadrantCoords(newBlipBaseCoords, graphConfig.newGroupBlipWidth)
     expect(coordsMap.first).toEqual(newBlipBaseCoords)
-    expect(coordsMap.second).toEqual([newBlipBaseCoords[0], 595.0799999999999])
-    expect(coordsMap.third).toEqual([561.8129012127738, newBlipBaseCoords[1]])
-    expect(coordsMap.fourth).toEqual([561.8129012127738, 595.0799999999999])
+    expect(coordsMap.second).toEqual([newBlipBaseCoords[0], 604.296])
+    expect(coordsMap.third).toEqual([577.7754814553286, newBlipBaseCoords[1]])
+    expect(coordsMap.fourth).toEqual([577.7754814553286, 604.296])
   })
 
   it('should return first quadrant group blip coordinates for ring2 with index 1', function () {
     const baseCoords = groupBlipsBaseCoords(1)
-    expect(baseCoords.new).toEqual([277.7806415819623, 334.4024054816618])
-    expect(baseCoords['existing']).toEqual([237.7806415819623, 363.4024054816618])
+    expect(baseCoords.new).toEqual([262.6820311016276, 323.8302446068393])
+    expect(baseCoords['existing']).toEqual([222.68203110162762, 352.8302446068393])
   })
 
   it('should return first quadrant group blip coordinates for ring3 with index 2', function () {
@@ -170,7 +170,7 @@ describe('Blips', function () {
 
   it('should return ring radius based on the ring index', function () {
     expect(getRingRadius(0)).toBe(0)
-    expect(getRingRadius(1)).toBe(184.32)
+    expect(getRingRadius(1)).toBe(221.184)
     expect(getRingRadius(2)).toBe(333.824)
     expect(getRingRadius(3)).toBe(425.984)
     expect(getRingRadius(4)).toBe(507.904)
