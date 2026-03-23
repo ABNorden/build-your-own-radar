@@ -21,65 +21,26 @@ function highlightBlipInGraph(blipIdToFocus) {
   fadeInSelectedBlip(selectedBlipOnGraph)
 }
 
-function resolveBlipContent(blip, fieldNames) {
-  for (const fieldName of fieldNames) {
-    const fieldValue = blip[fieldName]
-    const value = typeof fieldValue === 'function' ? fieldValue.call(blip) : fieldValue
-
-    if (typeof value === 'string' && value.trim()) {
-      return value.trim()
-    }
-  }
-
-  return ''
-}
-
-function appendHtmlContent(container, html, doc = document) {
-  const wrapper = doc.createElement('div')
-  wrapper.innerHTML = html
-
-  Array.from(wrapper.childNodes).forEach((node) => {
-    container.appendChild(node)
-  })
-}
-
-function createBlipDescriptionFragment(blip, doc = document) {
-  const description = resolveBlipContent(blip, ['description'])
-  const meaning = resolveBlipContent(blip, ['meaning', 'bedeutung', 'Bedeutung'])
-  const fragment = doc.createDocumentFragment()
-
+function buildBlipDescriptionContent(blip) {
+  const description = blip.description().trim()
+  const meaning = blip.meaning().trim()
+  const htmlParts = []
+  
   if (description) {
-    const descriptionCopy = doc.createElement('div')
-    descriptionCopy.className = 'blip-list__item-container__description-copy'
-    appendHtmlContent(descriptionCopy, description, doc)
-    fragment.appendChild(descriptionCopy)
+    htmlParts.push(`<div class="blip-list__item-container__description-copy">${description}</div>`)
   }
 
   if (meaning) {
-    const meaningSection = doc.createElement('section')
-    meaningSection.className = 'blip-list__item-container__meaning'
-
-    const meaningCopy = doc.createElement('div')
-    appendHtmlContent(meaningCopy, meaning, doc)
-
-    meaningSection.appendChild(meaningCopy)
-    fragment.appendChild(meaningSection)
+    htmlParts.push(
+      `<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`,
+    )
   }
 
-  return fragment
+  return htmlParts.join('')
 }
 
-function buildBlipDescriptionContent(blip, doc = document) {
-  const container = doc.createElement('div')
-  container.appendChild(createBlipDescriptionFragment(blip, doc))
-
-  return container.innerHTML
-}
-
-function appendBlipDescriptionContent(blipDescriptionContainer, blip, doc = document) {
-  const containerNode = blipDescriptionContainer.node()
-
-  containerNode.replaceChildren(createBlipDescriptionFragment(blip, doc))
+function appendBlipDescriptionContent(blipDescriptionContainer, blip) {
+  blipDescriptionContainer.html(buildBlipDescriptionContent(blip))
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
@@ -272,5 +233,4 @@ module.exports = {
   renderBlipDescription,
   appendBlipDescriptionContent,
   buildBlipDescriptionContent,
-  createBlipDescriptionFragment,
 }
