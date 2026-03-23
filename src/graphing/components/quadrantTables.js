@@ -21,13 +21,20 @@ function highlightBlipInGraph(blipIdToFocus) {
   fadeInSelectedBlip(selectedBlipOnGraph)
 }
 
+function buildBlipDescriptionContent(blip) {
+  const meaning = blip.meaning().trim()
+
+  if (!meaning) {
+    return blip.description()
+  }
+
+  return `${blip.description()}<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`
+}
+
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul[data-ring-order='${ring.order()}']`)
   if (!groupBlipTooltipText) {
- blipTableItem = blipTableItem
-      .append('li')
-      .classed('blip-list__item', true)
-      .attr('data-status', blip.status())
+blipTableItem = blipTableItem.append('li').classed('blip-list__item', true).attr('data-status', blip.status())
     const blipItemDiv = blipTableItem
       .append('div')
       .classed('blip-list__item-container', true)
@@ -70,7 +77,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .append('div')
       .classed('blip-list__item-container__description', true)
       .attr('id', `blip-description-${blip.id()}`)
-      .html(blip.description())
+      .html(buildBlipDescriptionContent(blip))
   }
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
@@ -210,4 +217,5 @@ function renderQuadrantTables(quadrants, rings) {
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
+  buildBlipDescriptionContent,
 }
