@@ -24,7 +24,7 @@ describe('quadrantTables', function () {
     }
 
     expect(buildBlipDescriptionContent(blip)).toEqual(
-      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><><div><p>Important</p></div></section>',
+      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div><p>Important</p></div></section>',
     )
   })
    
