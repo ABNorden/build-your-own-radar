@@ -29,10 +29,20 @@ describe('Blip', function () {
     expect(blip.description()).toEqual('description')
   })
 
+    it('has a meaning', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'topic', 'description', 'meaning')
+
+    expect(blip.meaning()).toEqual('meaning')
+  })
+  
   it('has empty description when not provided', function () {
     expect(blip.description()).toEqual('')
   })
 
+   it('has empty meaning when not provided', function () {
+    expect(blip.meaning()).toEqual('')
+  })
+  
   it('has a ring', function () {
     expect(blip.ring().name()).toEqual('My Ring')
   })
