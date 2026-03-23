@@ -469,7 +469,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
 function renderRadarLegends(radarElement) {
   const legendsContainer = radarElement.append('div').classed('radar-legends', true)
 
-  ;['A', 'B', 'C'].forEach((category) => {
+  ;['A', 'B'].forEach((category) => {
     const normalizedCategory = category.toLowerCase()
 
     legendsContainer
