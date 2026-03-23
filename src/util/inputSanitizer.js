@@ -36,6 +36,7 @@ const InputSanitizer = function () {
     blip.status = sanitizeHtml(blip.status, restrictedOptions)
     blip.ring = sanitizeHtml(blip.ring, restrictedOptions)
     blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions)
+    blip.bedeutung = sanitizeHtml(blip.bedeutung || blip.Bedeutung || blip.meaning || '', relaxedOptions)
 
     return blip
   }
@@ -49,6 +50,9 @@ const InputSanitizer = function () {
     const statusIndex = header.indexOf('status')
     const quadrantIndex = header.indexOf('quadrant')
     const ringIndex = header.indexOf('ring')
+    const meaningIndex = header.findIndex(
+      (value) => value.trim().toLowerCase() === 'bedeutung' || value.trim().toLowerCase() === 'meaning',
+    )
 
     const description = descriptionIndex === -1 ? '' : blip[descriptionIndex]
     const name = nameIndex === -1 ? '' : blip[nameIndex]
@@ -56,6 +60,7 @@ const InputSanitizer = function () {
     const status = statusIndex === -1 ? '' : blip[statusIndex]
     const ring = ringIndex === -1 ? '' : blip[ringIndex]
     const quadrant = quadrantIndex === -1 ? '' : blip[quadrantIndex]
+    const bedeutung = meaningIndex === -1 ? '' : blip[meaningIndex]
 
     blip.description = sanitizeHtml(description, relaxedOptions)
     blip.name = sanitizeHtml(name, restrictedOptions)
@@ -63,6 +68,7 @@ const InputSanitizer = function () {
     blip.status = sanitizeHtml(status, restrictedOptions)
     blip.ring = sanitizeHtml(ring, restrictedOptions)
     blip.quadrant = sanitizeHtml(quadrant, restrictedOptions)
+    blip.bedeutung = sanitizeHtml(bedeutung, relaxedOptions)
 
     return blip
   }
