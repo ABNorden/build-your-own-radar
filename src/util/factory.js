@@ -60,7 +60,6 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
         blip.status,
         blip.topic,
         blip.description,
-        blip.bedeutung || blip.meaning,
       ),
     )
   })
@@ -121,7 +120,6 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
         blip.status,
         blip.topic,
         blip.description,
-        blip.bedeutung || blip.meaning,
       )
       quadrants[currentQuadrant].add(blipObj)
     }
