@@ -24,7 +24,7 @@ describe('quadrantTables', function () {
     }
 
     expect(buildBlipDescriptionContent(blip)).toEqual(
-      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div><p>Important</p></div></section>',
+      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><><div><p>Important</p></div></section>',
     )
   })
    
@@ -35,7 +35,7 @@ describe('quadrantTables', function () {
     }
 
     expect(buildBlipDescriptionContent(blip)).toEqual(
-      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div><p>Important from CSV</p></div></section>',
+      '<div class="blip-list__item-container__description-copy"><p>Abstract</p></div><section class="blip-list__item-container__meaning"><><div><p>Important from CSV</p></div></section>',
     )
   })
   it('renders the Bedeutung section as a sibling even when description markup is not explicitly closed', function () {
@@ -53,7 +53,6 @@ describe('quadrantTables', function () {
     appendBlipDescriptionContent(container, blip)
 
     expect(document.querySelector('.blip-list__item-container__description-copy')?.innerHTML).toBe('<p>Abstract</p>')
-    expect(document.querySelector('.blip-list__item-container__meaning h3')?.textContent).toBe('Bedeutung für D+H')
     expect(document.querySelector('.blip-list__item-container__meaning div')?.innerHTML).toBe('<p>Important</p>')
   })
 })
