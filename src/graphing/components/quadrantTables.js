@@ -21,26 +21,47 @@ function highlightBlipInGraph(blipIdToFocus) {
   fadeInSelectedBlip(selectedBlipOnGraph)
 }
 
-function buildBlipDescriptionContent(blip) {
+function createBlipDescriptionFragment(blip, doc = document) {
   const description = blip.description().trim()
   const meaning = blip.meaning().trim()
-  const htmlParts = []
+  const fragment = doc.createDocumentFragment()
 
   if (description) {
-    htmlParts.push(`<div class="blip-list__item-container__description-copy">${description}</div>`)
+    const descriptionCopy = doc.createElement('div')
+    descriptionCopy.className = 'blip-list__item-container__description-copy'
+    descriptionCopy.innerHTML = description
+    fragment.appendChild(descriptionCopy)
   }
 
   if (meaning) {
-    htmlParts.push(
-      `<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`,
-    )
+        const meaningSection = doc.createElement('section')
+    meaningSection.className = 'blip-list__item-container__meaning'
+
+    const meaningHeadline = doc.createElement('h3')
+    meaningHeadline.textContent = 'Bedeutung für D+H'
+
+    const meaningCopy = doc.createElement('div')
+    meaningCopy.innerHTML = meaning
+
+    meaningSection.appendChild(meaningHeadline)
+    meaningSection.appendChild(meaningCopy)
+    fragment.appendChild(meaningSection)
   }
 
-  return htmlParts.join('')
+  return fragment
 }
 
-function appendBlipDescriptionContent(blipDescriptionContainer, blip) {
-  blipDescriptionContainer.html(buildBlipDescriptionContent(blip))
+function buildBlipDescriptionContent(blip, doc = document) {
+  const container = doc.createElement('div')
+  container.appendChild(createBlipDescriptionFragment(blip, doc))
+
+  return container.innerHTML
+}
+
+function appendBlipDescriptionContent(blipDescriptionContainer, blip, doc = document) {
+  const containerNode = blipDescriptionContainer.node()
+
+  containerNode.replaceChildren(createBlipDescriptionFragment(blip, doc))
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
@@ -231,5 +252,7 @@ module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
   appendBlipDescriptionContent,
-  buildBlipDescriptionContent
+  buildBlipDescriptionContent,
+  buildBlipDescriptionContent,
+  createBlipDescriptionFragment,
 }
