@@ -408,12 +408,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
       margin: $quadrantsGap auto;
       width: 100%;
       position: absolute;
       top: calc($quadrantWidth * 2 + $quadrantsGap);
     }
-
+    
+    .radar-legends__title {
+      color: $black;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 12px 0 0;
+    }
+    
     .radar-legends__filter-btn {
       background-color: #e10025;
       color: $white;
