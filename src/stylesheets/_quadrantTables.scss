@@ -118,6 +118,13 @@
             font-size: inherit !important;
             line-height: inherit !important;
             margin: 0 !important;
+          }
+
+          .blip-list__item-container__description-copy {
+            & > *:last-child {
+              margin-bottom: 0 !important;
+            }
+          }
 
           .blip-list__item-container__meaning {
             margin-top: 24px;
@@ -129,7 +136,6 @@
               line-height: inherit !important;
               font-weight: 700;
             }
-          }
           }
         }
       }
