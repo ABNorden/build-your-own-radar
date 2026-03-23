@@ -22,19 +22,24 @@ function highlightBlipInGraph(blipIdToFocus) {
 }
 
 function buildBlipDescriptionContent(blip) {
+  const description = blip.description().trim()
   const meaning = blip.meaning().trim()
 
   if (!meaning) {
-    return blip.description()
+    return description
   }
 
-  return `${blip.description()}<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`
+    const descriptionSection = description
+    ? `<div class="blip-list__item-container__description-copy">${description}</div>`
+    : ''
+
+  return `${descriptionSection}<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul[data-ring-order='${ring.order()}']`)
   if (!groupBlipTooltipText) {
-blipTableItem = blipTableItem.append('li').classed('blip-list__item', true).attr('data-status', blip.status())
+    blipTableItem = blipTableItem.append('li').classed('blip-list__item', true).attr('data-status', blip.status())
     const blipItemDiv = blipTableItem
       .append('div')
       .classed('blip-list__item-container', true)
