@@ -439,10 +439,6 @@
       &[data-status-filter='b'] {
         background-color: $d_horange;
       }
-
-      &[data-status-filter='c'] {
-        background-color: $heavyblack;
-      }
       
       &:not(.is-active) {
         background-color: #b9bfc4;
