@@ -26,6 +26,10 @@ function buildBlipDescriptionContent(blip) {
   const meaning = blip.meaning().trim()
   const htmlParts = []
 
+  if (description) {
+    htmlParts.push(`<div class="blip-list__item-container__description-copy">${description}</div>`)
+  }
+
   if (meaning) {
     htmlParts.push(
       `<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`,
@@ -227,4 +231,5 @@ module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
   appendBlipDescriptionContent,
+  buildBlipDescriptionContent
 }
