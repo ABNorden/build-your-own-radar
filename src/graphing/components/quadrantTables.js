@@ -21,27 +21,49 @@ function highlightBlipInGraph(blipIdToFocus) {
   fadeInSelectedBlip(selectedBlipOnGraph)
 }
 
+function resolveBlipContent(blip, fieldNames) {
+  for (const fieldName of fieldNames) {
+    const fieldValue = blip[fieldName]
+    const value = typeof fieldValue === 'function' ? fieldValue.call(blip) : fieldValue
+
+    if (typeof value === 'string' && value.trim()) {
+      return value.trim()
+    }
+  }
+
+  return ''
+}
+
+function appendHtmlContent(container, html, doc = document) {
+  const wrapper = doc.createElement('div')
+  wrapper.innerHTML = html
+
+  Array.from(wrapper.childNodes).forEach((node) => {
+    container.appendChild(node)
+  })
+}
+
 function createBlipDescriptionFragment(blip, doc = document) {
-  const description = blip.description().trim()
-  const meaning = blip.meaning().trim()
+  const description = resolveBlipContent(blip, ['description'])
+  const meaning = resolveBlipContent(blip, ['meaning', 'bedeutung', 'Bedeutung'])
   const fragment = doc.createDocumentFragment()
 
   if (description) {
     const descriptionCopy = doc.createElement('div')
     descriptionCopy.className = 'blip-list__item-container__description-copy'
-    descriptionCopy.innerHTML = description
+    appendHtmlContent(descriptionCopy, description, doc)
     fragment.appendChild(descriptionCopy)
   }
 
   if (meaning) {
-        const meaningSection = doc.createElement('section')
+    const meaningSection = doc.createElement('section')
     meaningSection.className = 'blip-list__item-container__meaning'
 
     const meaningHeadline = doc.createElement('h3')
     meaningHeadline.textContent = 'Bedeutung für D+H'
 
     const meaningCopy = doc.createElement('div')
-    meaningCopy.innerHTML = meaning
+    appendHtmlContent(meaningCopy, meaning, doc)
 
     meaningSection.appendChild(meaningHeadline)
     meaningSection.appendChild(meaningCopy)
@@ -218,6 +240,7 @@ function renderQuadrantTables(quadrants, rings) {
           }px auto 0px`,
         )
         .style('left', '0')
+        
         .style('right', 0)
     } else {
       quadrantContainer = quadrantTablesContainer
@@ -252,7 +275,6 @@ module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
   appendBlipDescriptionContent,
-  buildBlipDescriptionContent,
   buildBlipDescriptionContent,
   createBlipDescriptionFragment,
 }
