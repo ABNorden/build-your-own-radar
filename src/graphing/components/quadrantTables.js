@@ -59,13 +59,9 @@ function createBlipDescriptionFragment(blip, doc = document) {
     const meaningSection = doc.createElement('section')
     meaningSection.className = 'blip-list__item-container__meaning'
 
-    const meaningHeadline = doc.createElement('h3')
-    meaningHeadline.textContent = 'Bedeutung für D+H'
-
     const meaningCopy = doc.createElement('div')
     appendHtmlContent(meaningCopy, meaning, doc)
 
-    meaningSection.appendChild(meaningHeadline)
     meaningSection.appendChild(meaningCopy)
     fragment.appendChild(meaningSection)
   }
