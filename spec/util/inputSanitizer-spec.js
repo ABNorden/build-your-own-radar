@@ -12,7 +12,6 @@ describe('InputSanitizer', function () {
       ring: '<a href="/asd">Adopt</a>',
       quadrant: '<strong>techniques and tools</strong>',
       isNew: 'true<br>',
-      Bedeutung: "<p>Relevant <script>alert('dangerous');</script><strong>Info</strong></p>",
     }
 
     blip = sanitizer.sanitize(rawBlip)
@@ -38,10 +37,6 @@ describe('InputSanitizer', function () {
     expect(blip.quadrant).toEqual('techniques and tools')
   })
 
-    it('sanitizes the optional Bedeutung field', function () {
-    expect(blip.bedeutung).toEqual('<p>Relevant <strong>Info</strong></p>')
-  })
-  
   it('trims white spaces in keys and values', function () {
     rawBlip = {
       ' name': '   Some name ',
@@ -58,7 +53,7 @@ describe('Input Santizer for Protected sheet', function () {
   var sanitizer, rawBlip, blip, header
   beforeAll(function () {
     sanitizer = new InputSanitizer()
-    header = ['name', 'quadrant', 'ring', 'isNew', 'description', 'Bedeutung']
+    header = ['name', 'quadrant', 'ring', 'isNew', 'description',]
 
     rawBlip = [
       "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
@@ -66,7 +61,6 @@ describe('Input Santizer for Protected sheet', function () {
       "<a href='/asd'>Adopt</a>",
       'true<br>',
       "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>",
-      "<p>Useful <script>alert('dangerous');</script><strong>context</strong></p>",
     ]
 
     blip = sanitizer.sanitizeForProtectedSheet(rawBlip, header)
@@ -91,10 +85,6 @@ describe('Input Santizer for Protected sheet', function () {
   it('strips out all tags from blip quadrant', function () {
     expect(blip.quadrant).toEqual('techniques & tools')
   })
-  
- it('sanitizes the optional Bedeutung field', function () {
-    expect(blip.bedeutung).toEqual('<p>Useful <strong>context</strong></p>')
-  })
 
   it('trims white spaces in keys and values', function () {
     rawBlip = {
@@ -118,7 +108,6 @@ describe('Input Santizer for Protected sheet', function () {
       quadrant: '',
       isNew: '',
       status: '',
-      bedeutung: '',
     })
   })
 })
