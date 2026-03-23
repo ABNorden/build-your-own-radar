@@ -22,27 +22,21 @@ function highlightBlipInGraph(blipIdToFocus) {
 }
 
 function buildBlipDescriptionContent(blip) {
-function appendBlipDescriptionContent(blipDescriptionContainer, blip) {
   const description = blip.description().trim()
+  const meaning = blip.meaning().trim()
+  const htmlParts = []
 
- if (description) {
-    blipDescriptionContainer
-      .append('div')
-      .classed('blip-list__item-container__description-copy', true)
-      .html(description)
+  if (meaning) {
+    htmlParts.push(
+      `<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`,
+    )
+  }
 
-    const descriptionSection = description
-    ? `<div class="blip-list__item-container__description-copy">${description}</div>`
-    : ''
+  return htmlParts.join('')
+}
 
-   if (meaning) {
-    const meaningSection = blipDescriptionContainer
-      .append('section')
-      .classed('blip-list__item-container__meaning', true)
-
-    meaningSection.append('h3').text('Bedeutung für D+H')
-    meaningSection.append('div').html(meaning)
-   }
+function appendBlipDescriptionContent(blipDescriptionContainer, blip) {
+  blipDescriptionContainer.html(buildBlipDescriptionContent(blip))
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
@@ -91,7 +85,6 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .append('div')
       .classed('blip-list__item-container__description', true)
       .attr('id', `blip-description-${blip.id()}`)
-      .html(buildBlipDescriptionContent(blip))
     
     appendBlipDescriptionContent(blipDescriptionContainer, blip)
   }
