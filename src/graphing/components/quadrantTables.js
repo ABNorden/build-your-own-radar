@@ -22,18 +22,27 @@ function highlightBlipInGraph(blipIdToFocus) {
 }
 
 function buildBlipDescriptionContent(blip) {
+function appendBlipDescriptionContent(blipDescriptionContainer, blip) {
   const description = blip.description().trim()
-  const meaning = blip.meaning().trim()
 
-  if (!meaning) {
-    return description
-  }
+ if (description) {
+    blipDescriptionContainer
+      .append('div')
+      .classed('blip-list__item-container__description-copy', true)
+      .html(description)
 
     const descriptionSection = description
     ? `<div class="blip-list__item-container__description-copy">${description}</div>`
     : ''
 
-  return `${descriptionSection}<section class="blip-list__item-container__meaning"><h3>Bedeutung für D+H</h3><div>${meaning}</div></section>`
+   if (meaning) {
+    const meaningSection = blipDescriptionContainer
+      .append('section')
+      .classed('blip-list__item-container__meaning', true)
+
+    meaningSection.append('h3').text('Bedeutung für D+H')
+    meaningSection.append('div').html(meaning)
+   }
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
@@ -78,11 +87,13 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .text(`${blip.blipText()}. ${blip.name()}`)
     blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
 
-    blipItemDiv
+    const blipDescriptionContainer = blipItemDiv
       .append('div')
       .classed('blip-list__item-container__description', true)
       .attr('id', `blip-description-${blip.id()}`)
       .html(buildBlipDescriptionContent(blip))
+    
+    appendBlipDescriptionContent(blipDescriptionContainer, blip)
   }
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
@@ -222,5 +233,5 @@ function renderQuadrantTables(quadrants, rings) {
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
-  buildBlipDescriptionContent,
+  appendBlipDescriptionContent,
 }
