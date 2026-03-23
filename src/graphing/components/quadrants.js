@@ -469,6 +469,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
 function renderRadarLegends(radarElement) {
   const legendsContainer = radarElement.append('div').classed('radar-legends', true)
 
+  legendsContainer.append('h2').attr('class', 'radar-legends__title').text('Prio-Filter') 
   ;['A', 'B'].forEach((category) => {
     const normalizedCategory = category.toLowerCase()
 
