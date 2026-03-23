@@ -361,7 +361,10 @@ function renderRadarQuadrantName(quadrant, parentGroup, tip) {
     ctaArrowXOffset,
     ctaArrowYOffset = -12
 
-  const quadrantName = quadrantNameGroup.append('text').attr('data-quadrant-name', quadrantNameToDisplay)
+  const quadrantName = quadrantNameGroup
+    .append('text')
+    .attr('class', 'radar-quadrant-heading')
+    .attr('data-quadrant-name', quadrantNameToDisplay)
   const ctaArrow = quadrantNameGroup
     .append('polygon')
     .attr('class', 'quadrant-name-cta')
@@ -468,11 +471,14 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
 
 function renderRadarLegends(radarElement) {
   const legendsContainer = radarElement.append('div').classed('radar-legends', true)
+  const filterButtonsContainer = legendsContainer.append('div').attr('class', 'radar-legends__filter-group')
+
+  legendsContainer.append('h2').attr('class', 'radar-legends__title radar-quadrant-heading').text('Prio-Filter')
 
   ;['A', 'B'].forEach((category) => {
     const normalizedCategory = category.toLowerCase()
 
-    legendsContainer
+   filterButtonsContainer
       .append('button')
       .attr('type', 'button')
       .attr('class', 'radar-legends__filter-btn')
