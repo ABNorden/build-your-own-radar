@@ -7,7 +7,7 @@
     width: 100%;
 
     @include media-query-xlarge {
-      width: 80%;
+      width: 100%;
       min-width: calc($quadrantWidth * 2 + $quadrantsGap);
     }
 
