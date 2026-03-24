@@ -18,7 +18,9 @@
     }
 
     @include media-query-xlarge {
-      max-width: 40%;
+      // Keep enough horizontal space for the zoomed-in radar (512px * 1.25 scale)
+      // so the selected table never slides underneath the SVG on desktop views.
+      max-width: calc(100% - (#{$quadrantWidth} * 1.25) - #{$quadrantsGap});
       margin-top: 0 !important;
     }
 
