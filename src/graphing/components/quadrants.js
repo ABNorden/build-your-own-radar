@@ -117,7 +117,14 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const radarContainer = d3.select('#radar')
   const parentWidth = getElementWidth(radarContainer)
-  const selectedQuadrantTable = d3.select(`.quadrant-table.${order}`)
+    const selectedQuadrantTable = d3.select(`.quadrant-table.${order}`)
+  const availableTableWidth = Math.max(parentWidth - quadrantWidth * scale - quadrantsGap, 0)
+
+  if (window.innerWidth >= uiConfig.tabletViewWidth) {
+    d3.selectAll('.quadrant-table').style('max-width', null)
+    selectedQuadrantTable.style('max-width', `${availableTableWidth}px`)
+  }
+
   const selectedTableRect = selectedQuadrantTable.node().getBoundingClientRect()
   const radarContainerRect = radarContainer.node().getBoundingClientRect()
   const minLeftOffsetForRightQuadrants = selectedTableRect.right - radarContainerRect.left + quadrantsGap
