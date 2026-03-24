@@ -6,9 +6,9 @@
     @include layout-margin(calc(12 / 12), $screen-small);
     @include layout-margin(calc(12 / 12), $screen-medium);
     @include layout-margin(calc(12 / 12), $screen-large);
-    @include layout-margin(calc(4 / 12), $screen-xlarge);
-    @include layout-margin(calc(5 / 12), $screen-xxlarge);
-    @include layout-margin(calc(5 / 12), $screen-xxxlarge);
+    @include layout-margin(calc(8 / 12), $screen-xlarge);
+    @include layout-margin(calc(8 / 12), $screen-xxlarge);
+    @include layout-margin(calc(8 / 12), $screen-xxxlarge);
 
     &__ring-name {
       text-transform: none;
