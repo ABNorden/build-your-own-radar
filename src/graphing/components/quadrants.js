@@ -117,15 +117,18 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const radarContainer = d3.select('#radar')
   const parentWidth = getElementWidth(radarContainer)
+  const selectedQuadrantTable = d3.select(`.quadrant-table.${order}`)
+  const selectedTableWidth = getElementWidth(selectedQuadrantTable)
+  const minLeftOffsetForRightQuadrants = selectedTableWidth + quadrantsGap
 
   const translateLeftRightValues = {
     first: {
-      left: parentWidth - quadrantWidth * scale,
+      left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
     },
     second: {
-      left: parentWidth - quadrantWidth * scale,
+      left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
     },
@@ -605,9 +608,15 @@ function stickQuadrantOnScroll() {
     const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
     const radarWidth = radarContainer.node().getBoundingClientRect().width
     const selectedOrder = radarElement.attr('data-quadrant-selected')
-
-    const leftQuadrantLeftValue =
+    const selectedTableWidth = getElementWidth(selectedQuadrantTable)
+    const radarContainerLeft = (window.innerWidth - radarWidth) / 2
+    
+    const leftQuadrantDefaultLeftValue =
       (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
+    const leftQuadrantLeftValue = Math.max(
+      leftQuadrantDefaultLeftValue,
+      radarContainerLeft + selectedTableWidth + quadrantsGap,
+    )
     const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
 
     const radarLegendsWidth = getElementWidth(radarLegendsContainer)
