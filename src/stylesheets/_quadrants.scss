@@ -318,6 +318,8 @@
     &.selected {
       position: relative;
       max-height: 10000px;
+      background-color: $white;
+      z-index: 12;
 
       @if not $UIRefresh2022 {
         max-width: 40%;
