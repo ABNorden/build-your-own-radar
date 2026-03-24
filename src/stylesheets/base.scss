@@ -32,11 +32,12 @@
 @media screen {
   body {
     font: 18px 'Open Sans';
+    
     opacity: 0;
     @if $UIRefresh2022 {
       font-family: $baseFontFamily;
+      zoom: 67%;
       opacity: 1;
-
       h1 {
         font-size: 1.5rem;
         font-family: 'Bitter', serif;
