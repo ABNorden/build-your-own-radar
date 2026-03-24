@@ -486,6 +486,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
     d3.selectAll('.quadrant-table').classed('selected', false)
+    d3.selectAll('.quadrant-table').style('max-width', null)
     d3.selectAll('.home-link').classed('selected', false)
 
     d3.selectAll('.quadrant-group').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
