@@ -107,7 +107,11 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   d3.selectAll('.blip-item-description').classed('expanded', false)
 
-  const scale = getScale()
+  const defaultScale = getScale()
+  const minimumTableWidthRatio = 0.4
+  const maxScaleWithoutTableOverlap =
+    (parentWidth - parentWidth * minimumTableWidthRatio - quadrantsGap) / quadrantWidth
+  const scale = Math.min(defaultScale, Math.max(maxScaleWithoutTableOverlap, 1))
 
    const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle))
@@ -124,13 +128,11 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const translateLeftRightValues = {
     first: {
-      left: parentWidth - quadrantWidth * scale,
       left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
     },
     second: {
-      left: parentWidth - quadrantWidth * scale,
       left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
@@ -148,6 +150,7 @@ function selectRadarQuadrant(order, startAngle, name) {
   }
 
   svg
+    .attr('data-quadrant-scale', scale)
     .style(
       'left',
       window.innerWidth < uiConfig.tabletViewWidth
@@ -600,10 +603,9 @@ function quadrantScrollHandler(
 
 function stickQuadrantOnScroll() {
   if (!scrollFlag) {
-    const scale = getScale()
-
     const radarContainer = d3.select('#radar')
     const radarElement = d3.select('#radar-plot')
+    const scale = parseFloat(radarElement.attr('data-quadrant-scale')) || getScale()
     const selectedQuadrantTable = d3.select('.quadrant-table.selected')
     const radarLegendsContainer = d3.select('.radar-legends')
 
