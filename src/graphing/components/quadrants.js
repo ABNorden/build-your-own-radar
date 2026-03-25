@@ -109,7 +109,7 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const scale = getScale()
 
-  const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
+   const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle))
 
   const translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
@@ -117,25 +117,20 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const radarContainer = d3.select('#radar')
   const parentWidth = getElementWidth(radarContainer)
-    const selectedQuadrantTable = d3.select(`.quadrant-table.${order}`)
-  const availableTableWidth = Math.max(parentWidth - quadrantWidth * scale - quadrantsGap, 0)
-
-  if (window.innerWidth >= uiConfig.tabletViewWidth) {
-    d3.selectAll('.quadrant-table').style('max-width', null)
-    selectedQuadrantTable.style('max-width', `${availableTableWidth}px`)
-  }
-
+  const selectedQuadrantTable = d3.select(`.quadrant-table.${order}`)
   const selectedTableRect = selectedQuadrantTable.node().getBoundingClientRect()
   const radarContainerRect = radarContainer.node().getBoundingClientRect()
   const minLeftOffsetForRightQuadrants = selectedTableRect.right - radarContainerRect.left + quadrantsGap
 
   const translateLeftRightValues = {
     first: {
+      left: parentWidth - quadrantWidth * scale,
       left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
     },
     second: {
+      left: parentWidth - quadrantWidth * scale,
       left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
       top: 0,
       right: 'unset',
