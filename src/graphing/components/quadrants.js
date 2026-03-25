@@ -128,12 +128,12 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   const translateLeftRightValues = {
     first: {
-      left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
+      left: 0,
       top: 0,
       right: 'unset',
     },
     second: {
-      left: Math.max(parentWidth - quadrantWidth * scale, minLeftOffsetForRightQuadrants),
+      left: 0,
       top: 0,
       right: 'unset',
     },
@@ -535,8 +535,6 @@ function quadrantScrollHandler(
   scale,
   radarElement,
   offset,
-  selectedOrder,
-  leftQuadrantLeftValue,
   rightQuadrantLeftValue,
   radarHeight,
   selectedQuadrantTable,
@@ -567,23 +565,11 @@ function quadrantScrollHandler(
         `${parseFloat(prevLeft.slice(0, -2)) + (getScaledQuadrantWidth(scale) / 2 - radarLegendsWidth / 2)}px`,
       )
     } else {
-      if (selectedOrder === 'first' || selectedOrder === 'second') {
-        radarElement.style('left', `${leftQuadrantLeftValue}px`)
-        radarLegendsContainer.style(
-          'left',
-          `${
-            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
-          }px`,
-        )
-      } else {
-        radarElement.style('left', `${rightQuadrantLeftValue}px`)
-        radarLegendsContainer.style(
-          'left',
-          `${
-            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
-          }px`,
-        )
-      }
+    radarElement.style('left', `${rightQuadrantLeftValue}px`)
+      radarLegendsContainer.style(
+        'left',
+        `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)}px`,
+      )
 
       radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale) + uiConfig.subnavHeight}px`)
     }
@@ -612,10 +598,6 @@ function stickQuadrantOnScroll() {
     const radarHeight = quadrantHeight * scale + quadrantsGap * scale
     const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
     const radarWidth = radarContainer.node().getBoundingClientRect().width
-    const selectedOrder = radarElement.attr('data-quadrant-selected')
-    const selectedTableRect = selectedQuadrantTable.node().getBoundingClientRect()
-    const minRadarLeftFromTable = selectedTableRect.right + quadrantsGap
-    
     const leftQuadrantDefaultLeftValue =
       (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
     const leftQuadrantLeftValue = Math.max(leftQuadrantDefaultLeftValue, minRadarLeftFromTable)
@@ -628,8 +610,6 @@ function stickQuadrantOnScroll() {
       scale,
       radarElement,
       offset,
-      selectedOrder,
-      leftQuadrantLeftValue,
       rightQuadrantLeftValue,
       radarHeight,
       selectedQuadrantTable,
