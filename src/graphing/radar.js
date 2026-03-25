@@ -519,6 +519,7 @@ const Radar = function (size, radar) {
     d3.select('#radar-plot').classed('enable-transition', true)
 
     d3.select('#radar-plot').attr('data-quadrant-selected', null)
+    d3.select('#radar-plot').attr('data-quadrant-scale', null)
 
     const size = getGraphSize()
     d3.select('.home-link').remove()
