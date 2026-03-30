@@ -21,17 +21,6 @@ function highlightBlipInGraph(blipIdToFocus) {
   fadeInSelectedBlip(selectedBlipOnGraph)
 }
 
-function showSelectedBlipDetails(title, descriptionHtml) {
-  const selectedBlipDetails = d3.select('.selected-blip-details')
-  if (selectedBlipDetails.empty()) {
-    return
-  }
-
-  selectedBlipDetails.attr('hidden', null)
-  selectedBlipDetails.select('.selected-blip-details__title').text(title)
-  selectedBlipDetails.select('.selected-blip-details__content').html(descriptionHtml)
-}
-
 function resolveBlipContent(blip, fieldNames) {
   for (const fieldName of fieldNames) {
     const fieldValue = blip[fieldName]
@@ -129,8 +118,6 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
         d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
         d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
 
-        showSelectedBlipDetails(`${blip.blipText()}. ${blip.name()}`, buildBlipDescriptionContent(blip))
-        
         if (window.innerWidth >= uiConfig.tabletViewWidth) {
           stickQuadrantOnScroll()
         }
@@ -199,17 +186,10 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
     highlightBlipInGraph(blipId)
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-
-    const isGroupBlip = isNaN(parseInt(blipId))    
+  
     let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
-    if (selectedBlipContainer.empty() && isGroupBlip) {
-     selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
-    }
+  
     selectedBlipContainer.classed('expand', true)
-
-    const selectedBlipTitle = selectedBlipContainer.select('.blip-list__item-container__name-value').text()
-    const selectedBlipDescription = selectedBlipContainer.select('.blip-list__item-container__description').html()
-    showSelectedBlipDetails(selectedBlipTitle, selectedBlipDescription)
 
     setTimeout(
       () => {
@@ -217,6 +197,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
           stickQuadrantOnScroll()
         }
 
+        const isGroupBlip = isNaN(parseInt(blipId))
         if (isGroupBlip) {
           selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
         }
@@ -241,10 +222,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
 
 function renderQuadrantTables(quadrants, rings) {
   const radarContainer = d3.select('#radar')
-  const selectedBlipDetails = radarContainer.append('section').classed('selected-blip-details', true).attr('hidden', true)
-  selectedBlipDetails.append('h2').classed('selected-blip-details__title', true)
-  selectedBlipDetails.append('div').classed('selected-blip-details__content', true)
-
+ 
   const quadrantTablesContainer = radarContainer.append('div').classed('quadrant-table__container', true)
   quadrants.forEach(function (quadrant) {
     const scale = getScale()
