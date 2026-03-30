@@ -255,6 +255,7 @@ function renderQuadrantTables(quadrants, rings) {
         quadrant.quadrant
           .blips()
           .map((blip) => blip.ring())
+          .sort((firstRing, secondRing) => firstRing.order() - secondRing.order())
           .map((ring) => ring.name()),
       ),
     )
