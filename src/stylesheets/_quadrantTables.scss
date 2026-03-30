@@ -2,41 +2,7 @@
 @import 'layout';
 
 @if $UIRefresh2022 {
-    .selected-blip-details {
-    @include layout-margin(calc(12 / 12), $screen-small);
-    @include layout-margin(calc(12 / 12), $screen-medium);
-    @include layout-margin(calc(12 / 12), $screen-large);
-    @include layout-margin(calc(8 / 12), $screen-xlarge);
-    @include layout-margin(calc(8 / 12), $screen-xxlarge);
-    @include layout-margin(calc(8 / 12), $screen-xxxlarge);
-    margin-bottom: 32px;
-    padding: 20px;
-    background-color: $mist;
-
-    &__title {
-      margin: 0 0 16px;
-      font-family: $baseFontFamily;
-      font-size: 1.25rem;
-    }
-
-    &__content {
-      font-family: $baseFontFamily;
-      font-size: 1rem;
-      line-height: 36px;
-
-      & > * {
-        font-family: inherit !important;
-        font-size: inherit !important;
-        line-height: inherit !important;
-      }
-
-      .blip-list__item-container__meaning {
-        margin-top: 36px !important;
-      }
-    }
-  }
-  
-  .quadrant-table {
+    .quadrant-table {
     @include layout-margin(calc(12 / 12), $screen-small);
     @include layout-margin(calc(12 / 12), $screen-medium);
     @include layout-margin(calc(12 / 12), $screen-large);
