@@ -5,7 +5,7 @@
     .quadrant-table {
     @include layout-margin(calc(12 / 12), $screen-small);
     @include layout-margin(calc(12 / 12), $screen-medium);
-    @include layout-margin(calc(12 / 12), $screen-large);
+    @include layout-margin(calc(6 / 12), $screen-large);
     @include layout-margin(calc(8 / 12), $screen-xlarge);
     @include layout-margin(calc(8 / 12), $screen-xxlarge);
     @include layout-margin(calc(8 / 12), $screen-xxxlarge);
@@ -27,11 +27,9 @@
     &__container {
       display: flex;
       justify-content: center;
-
-      @include media-query-xlarge {
-        display: block;
-        justify-content: unset;
-      }
+align-items: flex-start;
+      gap: $quadrantsGap;
+      flex-wrap: nowrap;
     }
   }
 
