@@ -1,7 +1,7 @@
 const d3 = require('d3')
 const { selectRadarQuadrant, removeScrollListener } = require('./quadrants')
 const { getRingIdString } = require('../../util/stringUtil')
-const { uiConfig } = require('../config')
+const { uiConfig, isDesktopView } = require('../config')
 
 function addListItem(quadrantList, name, callback) {
   quadrantList
@@ -44,7 +44,7 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   })
 
   const subnavOffset =
-    (window.innerWidth < 1024 ? uiConfig.tabletBannerHeight : uiConfig.bannerHeight) + uiConfig.headerHeight
+    (isDesktopView() ? uiConfig.bannerHeight : uiConfig.tabletBannerHeight) + uiConfig.headerHeight
 
   window.addEventListener('scroll', function () {
     if (subnavOffset <= window.scrollY) {
