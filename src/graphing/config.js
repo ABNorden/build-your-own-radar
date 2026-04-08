@@ -40,7 +40,16 @@ const uiConfig = {
   headerHeight: 80,
   legendsHeight: 42,
   tabletViewWidth: 1280,
+  forceDesktopView: true,
   mobileViewWidth: 768,
+}
+
+function isTabletView() {
+  return !uiConfig.forceDesktopView && window.innerWidth < uiConfig.tabletViewWidth
+}
+
+function isDesktopView() {
+  return !isTabletView()
 }
 
 function getScale() {
@@ -66,5 +75,7 @@ module.exports = {
   getGraphSize,
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
+  isTabletView,
+  isDesktopView,
   isValidConfig,
 }
