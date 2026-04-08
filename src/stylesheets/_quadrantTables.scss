@@ -27,9 +27,15 @@
     &__container {
       display: flex;
       justify-content: center;
-align-items: flex-start;
+      align-items: flex-start;
       gap: $quadrantsGap;
       flex-wrap: nowrap;
+      width: 100%;
+      box-sizing: border-box;
+      @include media-query-large {
+        justify-content: flex-start;
+        padding-left: calc(#{$quadrantWidth} * 1.25 + #{$quadrantsGap});
+        }
     }
   }
 
