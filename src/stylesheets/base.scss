@@ -195,6 +195,36 @@
   margin-top: 20px;
 }
 
+@media screen {
+  :root {
+    --fixed-page-width: 453px;
+  }
+
+  html {
+    background: #fff;
+  }
+
+  body {
+    width: var(--fixed-page-width) !important;
+    min-width: var(--fixed-page-width) !important;
+    max-width: var(--fixed-page-width) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-x: visible !important;
+  }
+
+  body > * {
+    width: 100%;
+    max-width: var(--fixed-page-width);
+  }
+
+  .quadrant-subnav.sticky {
+    width: var(--fixed-page-width) !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 767px) {
   .mobile-header,
   .mobile-header.mobile-only,
