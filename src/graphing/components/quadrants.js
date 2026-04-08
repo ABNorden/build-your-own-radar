@@ -9,6 +9,8 @@ const {
   getScaledQuadrantHeightWithGap,
   getScale,
   uiConfig,
+  isTabletView,
+  isDesktopView,
 } = require('../config')
 
 const ANIMATION_DURATION = 1000
@@ -153,7 +155,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     .attr('data-quadrant-scale', scale)
     .style(
       'left',
-      window.innerWidth < uiConfig.tabletViewWidth
+      isTabletView()
         ? `calc((100% - ${quadrantWidth * scale}px) / 2)`
         : translateLeftRightValues[order].left + 'px',
     )
@@ -161,7 +163,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     .style('right', translateLeftRightValues[order].right)
     .style('box-sizing', 'border-box')
 
-  if (window.innerWidth < uiConfig.tabletViewWidth) {
+  if (isTabletView()) {
     svg.style('margin', 'unset')
   }
 
@@ -225,7 +227,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select('.radar-legends').classed('left-view', true)
   }
 
-  if (window.innerWidth < uiConfig.tabletViewWidth) {
+  if (isTabletView()) {
     d3.select('#radar').style('height', null)
   }
 
@@ -239,7 +241,7 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
 
-  if (window.innerWidth >= uiConfig.tabletViewWidth) {
+  if (isDesktopView()) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
