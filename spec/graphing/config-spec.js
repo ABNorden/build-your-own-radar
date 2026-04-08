@@ -3,10 +3,17 @@ const {
   getGraphSize,
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
+  uiConfig,
   isValidConfig,
 } = require('../../src/graphing/config')
 describe('Graphing Config', () => {
+  afterEach(() => {
+    uiConfig.forceFixedInnerWidth = true
+    uiConfig.fixedInnerWidth = 453
+  })
+
   it('should get the scale size for different window size', () => {
+    uiConfig.forceFixedInnerWidth = false
     window.innerWidth = 1440
     expect(getScale()).toStrictEqual(1.25)
 
