@@ -8,6 +8,7 @@ const {
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
   getScale,
+  getInnerWidth,
   uiConfig,
   isTabletView,
   isDesktopView,
@@ -262,7 +263,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     prevTop = d3.select('#radar-plot').style('top')
     stickQuadrantOnScroll()
   } else {
-    radarLegendsContainer.style('left', `${window.innerWidth / 2 - getElementWidth(radarLegendsContainer) / 2}px`)
+    radarLegendsContainer.style('left', `${getInnerWidth() / 2 - getElementWidth(radarLegendsContainer) / 2}px`)
   }
 }
 
@@ -601,9 +602,9 @@ function stickQuadrantOnScroll() {
     const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
     const radarWidth = radarContainer.node().getBoundingClientRect().width
     const leftQuadrantDefaultLeftValue =
-      (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
+      (getInnerWidth() + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
     const leftQuadrantLeftValue = Math.max(leftQuadrantDefaultLeftValue, minRadarLeftFromTable)
-    const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
+    const rightQuadrantLeftValue = (getInnerWidth() - radarWidth) / 2
 
     const radarLegendsWidth = getElementWidth(radarLegendsContainer)
 
