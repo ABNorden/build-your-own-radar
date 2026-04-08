@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const { graphConfig, getScale, uiConfig } = require('../config')
+const { uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const { removeAllSpaces } = require('../../util/stringUtil')
 
@@ -225,31 +225,10 @@ function renderQuadrantTables(quadrants, rings) {
  
   const quadrantTablesContainer = radarContainer.append('div').classed('quadrant-table__container', true)
   quadrants.forEach(function (quadrant) {
-    const scale = getScale()
-    let quadrantContainer
-    if (window.innerWidth < uiConfig.tabletViewWidth && window.innerWidth >= uiConfig.mobileViewWidth) {
-      quadrantContainer = quadrantTablesContainer
-        .append('div')
-        .classed('quadrant-table', true)
-        .classed(quadrant.order, true)
-        .style(
-          'margin',
-          `${
-            graphConfig.quadrantHeight * scale +
-            graphConfig.quadrantsGap * scale +
-            graphConfig.quadrantsGap * 2 +
-            uiConfig.legendsHeight
-          }px auto 0px`,
-        )
-        .style('left', '0')
-        
-        .style('right', 0)
-    } else {
-      quadrantContainer = quadrantTablesContainer
-        .append('div')
-        .classed('quadrant-table', true)
-        .classed(quadrant.order, true)
-    }
+        const quadrantContainer = quadrantTablesContainer
+      .append('div')
+      .classed('quadrant-table', true)
+      .classed(quadrant.order, true)
 
     const ringNames = Array.from(
       new Set(
