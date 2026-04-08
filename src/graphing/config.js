@@ -38,22 +38,26 @@ const uiConfig = {
   bannerHeight: 200,
   tabletBannerHeight: 300,
   headerHeight: 80,
-  legendsHeight: 42,
-  tabletViewWidth: 1280,
+  legendsHeight: 42,  
   forceDesktopView: true,
+  fixedInnerWidth: 453,
+  tabletViewWidth: 1280,
   mobileViewWidth: 768,
 }
 
+function getInnerWidth() {
+  return uiConfig.forceFixedInnerWidth ? uiConfig.fixedInnerWidth : window.innerWidth
+}
+
 function isTabletView() {
-  return !uiConfig.forceDesktopView && window.innerWidth < uiConfig.tabletViewWidth
+  return getInnerWidth() < uiConfig.tabletViewWidth
 }
 
 function isDesktopView() {
   return !isTabletView()
 }
-
 function getScale() {
-  return window.innerWidth < 1800 ? 1.25 : 1.5
+  return getInnerWidth() < 1800 ? 1.25 : 1.5
 }
 
 function getGraphSize() {
@@ -75,6 +79,7 @@ module.exports = {
   getGraphSize,
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
+  getInnerWidth,
   isTabletView,
   isDesktopView,
   isValidConfig,
