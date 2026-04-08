@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const { uiConfig } = require('../config')
+const { isDesktopView } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const { removeAllSpaces } = require('../../util/stringUtil')
 
@@ -118,7 +118,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
         d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
         d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
 
-        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+        if (isDesktopView()) {
           stickQuadrantOnScroll()
         }
       })
@@ -193,7 +193,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
 
     setTimeout(
       () => {
-        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+        if (isDesktopView()) {
           stickQuadrantOnScroll()
         }
 
